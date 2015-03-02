@@ -68,10 +68,21 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 #pragma mark - home
 ////http://localhost:8080/houseRenting/houseApi/getHouseListData?page=1&rows=10
 //获取房源列表信息
+- (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid tag:(int)tag;
 - (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count tag:(int)tag;
 //筛选房源列表信息
 - (BOOL)getHouseListWithNum:(NSUInteger)pagenum count:(NSUInteger)count qRoomAreaMin:(NSString *)aMin qRoomAreaMax:(NSString *)aMax qPriceMin:(NSString *)pMin qPriceMax:(NSString *)pMax qCanCooking:(NSString *)cooking qHaveFurniture:(NSString *)furniture qDirection:(NSString *)dire tag:(int)tag;
 //获取房源详情
 - (BOOL)getHouseDetailWithHid:(NSString *)houseId tag:(int)tag;
+
+//版本更新
+- (BOOL)getAppNewVersionWithAppType:(int)appType version:(NSInteger)version tag:(int)tag;
+
+//我的收藏列表 及 已联系房东列表
+- (BOOL)getCollectHouseListWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid  queryType:(int)queryType tag:(int)tag;
+//租客已成交记录/房东待确认记录
+- (BOOL)getHouseRecordListWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid  queryType:(int)queryType tag:(int)tag;
+//我的首页数据统计
+- (BOOL)getMineCountDataWithUid:(NSString *)uid queryType:(int)queryType tag:(int)tag;
 
 @end

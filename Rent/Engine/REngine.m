@@ -542,11 +542,14 @@ static REngine* s_ShareInstance = nil;
 #pragma mark - home
 ////http://localhost:8080/houseRenting/houseApi/getHouseListData?page=1&rows=10
 //获取房源信息
-- (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count tag:(int)tag{
+- (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/getHouseListData",API_URL] type:1 parameters:params];
     if (pagenum) {
         [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"page"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userId"];
     }
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"rows"];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
@@ -594,4 +597,61 @@ static REngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)getAppNewVersionWithAppType:(int)appType version:(NSInteger)version tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:appType] forKey:@"appType"];
+    [params setObject:[NSNumber numberWithInteger:version] forKey:@"version"];
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/checkUpdate",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getCollectHouseListWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid  queryType:(int)queryType tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (pagenum) {
+        [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"page"];
+    }
+    [params setObject:[NSNumber numberWithInteger:count] forKey:@"rows"];
+    
+    [params setObject:[NSNumber numberWithInt:queryType] forKey:@"queryType"];
+    
+    if (uid) {
+        [params setObject:uid forKey:@"userId"];
+    }
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/getRelationHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
+
+- (BOOL)getHouseRecordListWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid  queryType:(int)queryType tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (pagenum) {
+        [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"page"];
+    }
+    [params setObject:[NSNumber numberWithInteger:count] forKey:@"rows"];
+    
+    [params setObject:[NSNumber numberWithInt:queryType] forKey:@"queryType"];
+    
+    if (uid) {
+        [params setObject:uid forKey:@"userId"];
+    }
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/getDealHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getMineCountDataWithUid:(NSString *)uid queryType:(int)queryType tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:[NSNumber numberWithInt:queryType] forKey:@"queryType"];
+    
+    if (uid) {
+        [params setObject:uid forKey:@"userId"];
+    }
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/countData",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end
