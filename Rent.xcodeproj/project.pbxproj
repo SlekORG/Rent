@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		074C03111AA43B3700EA5F7F /* HouseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074C030F1AA43B3700EA5F7F /* HouseListViewController.m */; };
-		074C03121AA43B3700EA5F7F /* HouseListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074C03101AA43B3700EA5F7F /* HouseListViewController.xib */; };
 		073EF2D01AA4297200D98463 /* HouseFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073EF2CE1AA4297200D98463 /* HouseFilterViewController.m */; };
 		073EF2D11AA4297200D98463 /* HouseFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073EF2CF1AA4297200D98463 /* HouseFilterViewController.xib */; };
+		074C03111AA43B3700EA5F7F /* HouseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074C030F1AA43B3700EA5F7F /* HouseListViewController.m */; };
+		074C03121AA43B3700EA5F7F /* HouseListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074C03101AA43B3700EA5F7F /* HouseListViewController.xib */; };
 		3B371C221AA2B8B4008545AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C211AA2B8B4008545AE /* main.m */; };
 		3B371C251AA2B8B4008545AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C241AA2B8B4008545AE /* AppDelegate.m */; };
 		3B371C281AA2B8B4008545AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C271AA2B8B4008545AE /* ViewController.m */; };
@@ -150,6 +150,10 @@
 		3B371DF41AA31093008545AE /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B371DF31AA31093008545AE /* libsqlite3.0.dylib */; };
 		3B371DF91AA36A8A008545AE /* HouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371DF71AA36A8A008545AE /* HouseDetailViewController.m */; };
 		3B371DFA1AA36A8A008545AE /* HouseDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B371DF81AA36A8A008545AE /* HouseDetailViewController.xib */; };
+		3B9FC7D61AA4BD61009822E1 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC7D31AA4BD61009822E1 /* NewIntroView.m */; };
+		3B9FC7D71AA4BD61009822E1 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC7D51AA4BD61009822E1 /* NewIntroViewController.m */; };
+		3B9FC7DB1AA4C118009822E1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC7D91AA4C118009822E1 /* LoginViewController.m */; };
+		3B9FC7DC1AA4C118009822E1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FC7DA1AA4C118009822E1 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,12 +167,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		074C030E1AA43B3700EA5F7F /* HouseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseListViewController.h; sourceTree = "<group>"; };
-		074C030F1AA43B3700EA5F7F /* HouseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseListViewController.m; sourceTree = "<group>"; };
-		074C03101AA43B3700EA5F7F /* HouseListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseListViewController.xib; sourceTree = "<group>"; };
 		073EF2CD1AA4297200D98463 /* HouseFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HouseFilterViewController.h; path = ViewControllers/Detail/HouseFilterViewController.h; sourceTree = "<group>"; };
 		073EF2CE1AA4297200D98463 /* HouseFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HouseFilterViewController.m; path = ViewControllers/Detail/HouseFilterViewController.m; sourceTree = "<group>"; };
 		073EF2CF1AA4297200D98463 /* HouseFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HouseFilterViewController.xib; path = ViewControllers/Detail/HouseFilterViewController.xib; sourceTree = "<group>"; };
+		074C030E1AA43B3700EA5F7F /* HouseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseListViewController.h; sourceTree = "<group>"; };
+		074C030F1AA43B3700EA5F7F /* HouseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseListViewController.m; sourceTree = "<group>"; };
+		074C03101AA43B3700EA5F7F /* HouseListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseListViewController.xib; sourceTree = "<group>"; };
 		3B371C1C1AA2B8B4008545AE /* Rent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B371C201AA2B8B4008545AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B371C211AA2B8B4008545AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -432,6 +436,13 @@
 		3B371DF61AA36A8A008545AE /* HouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HouseDetailViewController.h; path = ViewControllers/Detail/HouseDetailViewController.h; sourceTree = "<group>"; };
 		3B371DF71AA36A8A008545AE /* HouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HouseDetailViewController.m; path = ViewControllers/Detail/HouseDetailViewController.m; sourceTree = "<group>"; };
 		3B371DF81AA36A8A008545AE /* HouseDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HouseDetailViewController.xib; path = ViewControllers/Detail/HouseDetailViewController.xib; sourceTree = "<group>"; };
+		3B9FC7D21AA4BD61009822E1 /* NewIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewIntroView.h; path = ViewControllers/Login/NewIntroView.h; sourceTree = "<group>"; };
+		3B9FC7D31AA4BD61009822E1 /* NewIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewIntroView.m; path = ViewControllers/Login/NewIntroView.m; sourceTree = "<group>"; };
+		3B9FC7D41AA4BD61009822E1 /* NewIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewIntroViewController.h; path = ViewControllers/Login/NewIntroViewController.h; sourceTree = "<group>"; };
+		3B9FC7D51AA4BD61009822E1 /* NewIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewIntroViewController.m; path = ViewControllers/Login/NewIntroViewController.m; sourceTree = "<group>"; };
+		3B9FC7D81AA4C118009822E1 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/Login/LoginViewController.h; sourceTree = "<group>"; };
+		3B9FC7D91AA4C118009822E1 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/Login/LoginViewController.m; sourceTree = "<group>"; };
+		3B9FC7DA1AA4C118009822E1 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/Login/LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1046,6 +1057,13 @@
 		3B371DDC1AA2F0CF008545AE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3B9FC7D21AA4BD61009822E1 /* NewIntroView.h */,
+				3B9FC7D31AA4BD61009822E1 /* NewIntroView.m */,
+				3B9FC7D41AA4BD61009822E1 /* NewIntroViewController.h */,
+				3B9FC7D51AA4BD61009822E1 /* NewIntroViewController.m */,
+				3B9FC7D81AA4C118009822E1 /* LoginViewController.h */,
+				3B9FC7D91AA4C118009822E1 /* LoginViewController.m */,
+				3B9FC7DA1AA4C118009822E1 /* LoginViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1171,6 +1189,7 @@
 			files = (
 				3B371DEC1AA2F725008545AE /* MoreViewController.xib in Resources */,
 				3B371D9A1AA2D9AC008545AE /* README in Resources */,
+				3B9FC7DC1AA4C118009822E1 /* LoginViewController.xib in Resources */,
 				3B371D931AA2D9AC008545AE /* ProgressHUD.bundle in Resources */,
 				3B371DF21AA308CD008545AE /* HomeViewCell.xib in Resources */,
 				3B371DE21AA2F5B0008545AE /* HomeViewController.xib in Resources */,
@@ -1231,6 +1250,7 @@
 				3B371C251AA2B8B4008545AE /* AppDelegate.m in Sources */,
 				3B371DAF1AA2D9AC008545AE /* UIImage+Resize.m in Sources */,
 				3B371D851AA2D9AC008545AE /* PSTCollectionViewFlowLayout.m in Sources */,
+				3B9FC7DB1AA4C118009822E1 /* LoginViewController.m in Sources */,
 				3B371DB71AA2D9AC008545AE /* WSAssetViewColumn.m in Sources */,
 				3B371D891AA2D9AC008545AE /* PSTGridLayoutInfo.m in Sources */,
 				3B371C9B1AA2D91F008545AE /* NSString+Value.m in Sources */,
@@ -1263,6 +1283,7 @@
 				3B371D7E1AA2D9AC008545AE /* MWZoomingScrollView.m in Sources */,
 				3B371C541AA2BB84008545AE /* RSettingConfig.m in Sources */,
 				3B371DA71AA2D9AC008545AE /* UIImage+MultiFormat.m in Sources */,
+				3B9FC7D71AA4BD61009822E1 /* NewIntroViewController.m in Sources */,
 				3B371D651AA2D9AC008545AE /* AFHTTPSessionManager.m in Sources */,
 				3B371C6D1AA2C268008545AE /* RNavigationController.m in Sources */,
 				3B371D9C1AA2D9AC008545AE /* NSData+GIF.m in Sources */,
@@ -1275,6 +1296,7 @@
 				3B371D6C1AA2D9AC008545AE /* EGOCache.m in Sources */,
 				3B371DBA1AA2D9AC008545AE /* WSAssetWrapper.m in Sources */,
 				3B371D641AA2D9AC008545AE /* AFHTTPRequestOperationManager.m in Sources */,
+				3B9FC7D61AA4BD61009822E1 /* NewIntroView.m in Sources */,
 				3B371DA41AA2D9AC008545AE /* SDWebImagePrefetcher.m in Sources */,
 				3B371DB21AA2D9AC008545AE /* WSAlbumTableViewController.m in Sources */,
 				3B371D791AA2D9AC008545AE /* MWGridViewController.m in Sources */,

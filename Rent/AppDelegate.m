@@ -13,8 +13,10 @@
 #import "MineViewController.h"
 #import "MoreViewController.h"
 #import "RNavigationController.h"
+#import "NewIntroViewController.h"
+#import "LoginViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<NewIntroViewControllerDelegate>
 
 @end
 
@@ -30,16 +32,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-//    if ([[REngine shareInstance] hasAccoutLoggedin] || ![REngine shareInstance].firstLogin) {
-//        if ([RSettingConfig isFirstEnterVersion]) {
-//            [self showNewIntro];
-//        } else {
-//            [self signIn];
-//        }
-//    }else{
-//        NSLog(@"signOut for accout miss");
-//        [self signOut];
-//    }
+    if ([[REngine shareInstance] hasAccoutLoggedin] || ![REngine shareInstance].firstLogin) {
+        if ([RSettingConfig isFirstEnterVersion]) {
+            [self showNewIntro];
+        } else {
+            [self signIn];
+        }
+    }else{
+        NSLog(@"signOut for accout miss");
+        [self signOut];
+    }
     [self signIn];
     [self.window makeKeyAndVisible];
     
@@ -48,9 +50,9 @@
 
 //新手引导
 -(void)showNewIntro{
-//    NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
-//    introVc.delegate = self;
-//    self.window.rootViewController = introVc;
+    NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
+    introVc.delegate = self;
+    self.window.rootViewController = introVc;
 }
 
 - (void)signIn{
@@ -62,12 +64,12 @@
         [REngine shareInstance].bVisitor = YES;
     }
     
-//    if([RSettingConfig isFirstEnterVersion]){
-//        [self showNewIntro];
-//        return;
-//    }
-//    
-//    [RSettingConfig saveEnterUsr];
+    if([RSettingConfig isFirstEnterVersion]){
+        [self showNewIntro];
+        return;
+    }
+    
+    [RSettingConfig saveEnterUsr];
     
     RTabBarViewController* tabViewController = [[RTabBarViewController alloc] init];
     tabViewController.viewControllers = [NSArray arrayWithObjects:
@@ -99,15 +101,22 @@
         return;
     }
     
-//    WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] init];
-//    XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeViewController];
-//    navigationController.navigationBarHidden = YES;
-//    self.window.rootViewController = navigationController;
-//    
-//    _mainTabViewController = nil;
+    LoginViewController* loginVc = [[LoginViewController alloc] init];
+    RNavigationController* navigationController = [[RNavigationController alloc] initWithRootViewController:loginVc];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
+    
+    _mainTabViewController = nil;
     
     [[REngine shareInstance] logout];
     //    [XEEngine shareInstance].firstLogin = YES;
+}
+
+#pragma mark -LSIntroduceVcDelegate
+
+- (void)introduceVcFinish:(NewIntroViewController *)vc {
+    [self signOut];
+    //    [self signIn];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

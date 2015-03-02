@@ -65,6 +65,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (void)clearAllCache;
 - (unsigned long long)getUrlCacheSize;
 
+#pragma mark -register and login
+- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password type:(NSString *)userType name:(NSString *)contactName tag:(int)tag;
+- (BOOL)loginWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag;
+
 #pragma mark - home
 ////http://localhost:8080/houseRenting/houseApi/getHouseListData?page=1&rows=10
 //获取房源列表信息

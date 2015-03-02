@@ -15,6 +15,8 @@
 #import "HomeViewCell.h"
 #import "HouseDetailViewController.h"
 #import "HouseFilterViewController.h"
+#import "LoginViewController.h"
+#import "RNavigationController.h"
 
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -138,7 +140,11 @@
 }
 
 - (void)loginAction{
-    NSLog(@"==========登录");
+    LoginViewController *loginVc = [[LoginViewController alloc] init];
+    loginVc.showBackButton = YES;
+    RNavigationController* navigationController = [[RNavigationController alloc] initWithRootViewController:loginVc];
+    navigationController.navigationBarHidden = YES;
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)filterAction{
