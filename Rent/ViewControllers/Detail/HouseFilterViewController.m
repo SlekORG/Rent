@@ -56,7 +56,6 @@
     CGRect frame = _floatView.frame;
     frame.origin.y = self.view.bounds.size.height;
     _floatView.frame = frame;
-    _directionStr = @"1";
     _pickerArray = [NSArray arrayWithObjects:@"朝东",@"朝南",@"朝西",@"朝北",@"南西",@"东南",@"西北",@"东北", nil];
     _direArray = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8", nil];
 }
