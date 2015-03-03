@@ -61,7 +61,7 @@
     __weak HomeViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
 
-    [[REngine shareInstance] getHouseInfoWithNum:1 count:10 uid:nil tag:tag];
+    [[REngine shareInstance] getHouseInfoWithNum:1 count:10 uid:nil status:0 tag:tag];
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //        [XEProgressHUD AlertLoadDone];
 //        [self.pullRefreshView finishedLoading];

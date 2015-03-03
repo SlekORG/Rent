@@ -72,7 +72,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 #pragma mark - home
 ////http://localhost:8080/houseRenting/houseApi/getHouseListData?page=1&rows=10
 //获取房源列表信息
-- (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid tag:(int)tag;
+- (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid status:(int)status tag:(int)tag;
 - (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count tag:(int)tag;
 //筛选房源列表信息
 - (BOOL)getHouseListWithNum:(NSUInteger)pagenum count:(NSUInteger)count qRoomAreaMin:(NSString *)aMin qRoomAreaMax:(NSString *)aMax qPriceMin:(NSString *)pMin qPriceMax:(NSString *)pMax qCanCooking:(NSString *)cooking qHaveFurniture:(NSString *)furniture qDirection:(NSString *)dire tag:(int)tag;
@@ -88,5 +88,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getHouseRecordListWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid  queryType:(int)queryType tag:(int)tag;
 //我的首页数据统计
 - (BOOL)getMineCountDataWithUid:(NSString *)uid queryType:(int)queryType tag:(int)tag;
+
+//标记已出租
+- (BOOL)markHasBeenRentWithHouseId:(NSString *)houseId tag:(int)tag;
+//重新发布
+- (BOOL)resetPublishWithHouseId:(NSString *)houseId tag:(int)tag;
 
 @end
