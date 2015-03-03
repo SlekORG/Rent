@@ -63,7 +63,7 @@
     }
     __weak MineViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
-    [[REngine shareInstance] getMineCountDataWithUid:@"5" queryType:queryType tag:tag];
+    [[REngine shareInstance] getMineCountDataWithUid:[REngine shareInstance].uid queryType:queryType tag:tag];
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         if (!jsonRet || err){
             return ;
@@ -76,7 +76,8 @@
 
 #pragma mark - custom
 -(BOOL)isLandlordUser{
-    return YES;
+    
+    return ([[REngine shareInstance].userInfo.userType intValue] == 1);
 }
 
 -(void)loadDataSource{

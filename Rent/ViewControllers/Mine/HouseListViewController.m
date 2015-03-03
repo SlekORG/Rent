@@ -39,7 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [REngine shareInstance].uid = @"39";
     self.houseDataSource = [[NSMutableArray alloc] init];
     
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];

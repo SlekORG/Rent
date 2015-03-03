@@ -15,6 +15,8 @@
 @property (readwrite, nonatomic) RTabBarViewController* mainTabViewController;
 @property (strong, nonatomic) UIMenuController *appMenu;
 
+- (void)signIn;
+- (void)signOut;
 
 @end
 

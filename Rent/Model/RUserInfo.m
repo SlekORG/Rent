@@ -48,6 +48,25 @@
 }
 
 - (void)doSetUserInfoByJsonDic:(NSDictionary*)dic {
+    
+    
+    if ([dic objectForKey:@"userType"]) {
+        _userType = [[dic objectForKey:@"userType"] description];
+    }
+    if ([dic objectForKey:@"userName"]) {
+        _userName = [[dic objectForKey:@"userName"] description];
+    }
+    if ([dic objectForKey:@"contactName"]) {
+        _contactName = [[dic objectForKey:@"contactName"] description];
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     //....
     if ([dic objectForKey:@"account"]) {
         _account = [dic objectForKey:@"account"];
@@ -139,7 +158,7 @@
         return;
     }
     _userInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
-    _uid = [[dic objectForKey:@"id"] description];
+    _uid = [[dic objectForKey:@"userId"] description];
     
     @try {
         [self doSetUserInfoByJsonDic:dic];

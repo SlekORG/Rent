@@ -11,7 +11,7 @@
 @interface RUserInfo : NSObject
 
 @property(nonatomic, strong) NSString* uid;
-@property(nonatomic, strong) NSString* userType;
+@property(nonatomic, strong) NSString* userType;//1.房东 2.租客
 @property(nonatomic, strong) NSString* userName;
 @property(nonatomic, strong) NSString* contactName;
 

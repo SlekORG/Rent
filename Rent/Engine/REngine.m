@@ -546,16 +546,16 @@ static REngine* s_ShareInstance = nil;
     [params setObject:password forKey:@"password"];
     [params setObject:userType forKey:@"userType"];
     [params setObject:contactName forKey:@"contactName"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/reg/phone",API_URL] type:1 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/saveUser",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password tag:(int)tag error:(NSError **)errPtr
+- (BOOL)loginWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:phone forKey:@"userName"];
     [params setObject:password forKey:@"password"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/login",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/userLogin",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
