@@ -555,7 +555,7 @@ static REngine* s_ShareInstance = nil;
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:phone forKey:@"userName"];
     [params setObject:password forKey:@"password"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/userLogin",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/userLogin",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
