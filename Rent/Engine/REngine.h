@@ -100,4 +100,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //图片上传
 - (BOOL)updateImageWithData:(NSArray *)data tag:(int)tag;
 
+//租客确认房源
+- (BOOL)comfirmHouseWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag;
+//房东确认租出
+- (BOOL)checkHouseWithHouseId:(NSString *)houseId tag:(int)tag;
 @end

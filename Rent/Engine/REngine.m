@@ -560,7 +560,6 @@ static REngine* s_ShareInstance = nil;
 }
 
 #pragma mark - home
-////http://localhost:8080/houseRenting/houseApi/getHouseListData?page=1&rows=10
 //获取房源信息
 - (BOOL)getHouseInfoWithNum:(NSUInteger)pagenum count:(NSUInteger)count uid:(NSString *)uid status:(int)status tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
@@ -716,6 +715,23 @@ static REngine* s_ShareInstance = nil;
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/imgUpload",API_URL] type:2 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+//租客确认房源
+- (BOOL)comfirmHouseWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userId"];
+    [params setObject:houseId forKey:@"houseId"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/confirmHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+//房东确认租出
+- (BOOL)checkHouseWithHouseId:(NSString *)houseId tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:houseId forKey:@"houseId"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/checkHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 @end

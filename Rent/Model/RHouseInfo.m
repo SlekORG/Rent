@@ -90,7 +90,12 @@
     if ([dic objectForKey:@"payTypeName"]) {
         _payTypeName = [dic objectForKey:@"payTypeName"];
     }
-    
+    if ([dic objectForKey:@"isLike"]) {
+        _isLike = [dic boolValueForKey:@"isLike"];
+    }
+    if ([dic objectForKey:@"description"]) {
+        _houseDescription = [dic objectForKey:@"description"];
+    }
     id objectForKey = [dic arrayObjectForKey:@"img"];
     if (objectForKey) {
         _picIds = [NSMutableArray array];

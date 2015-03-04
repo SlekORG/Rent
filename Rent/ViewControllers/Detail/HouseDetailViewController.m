@@ -42,8 +42,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self getHouseDetail];
     [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.2)];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self getHouseDetail];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,25 +57,52 @@
 
 - (void)initNormalTitleNavBarSubviews{
     [self setTitle:@"房源详情"];
-    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction)];
+    if ([[REngine shareInstance].userInfo.userType intValue] == 2) {
+       [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction)];
+    }
+}
+
+-(BOOL)isCollect{
+    if (_houseInfo.isLike != 0) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)collectAction{
-    NSLog(@"=============收藏");
     __weak HouseDetailViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
-    [[REngine shareInstance] collectHouseWithUid:[REngine shareInstance].uid houseId:self.houseInfo.hid type:@"1" tag:tag];
-    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
+    if ([self isCollect]) {
+        [[REngine shareInstance] cancelCollectHouseWithUid:[REngine shareInstance].uid houseId:self.houseInfo.hid tag:tag];
+        [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
             }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-        [XEProgressHUD AlertSuccess:@"收藏成功" At:weakSelf.view];
-    }tag:tag];
+            weakSelf.houseInfo.isLike = 0;
+            [weakSelf refreshNavBar];
+            [XEProgressHUD AlertSuccess:@"取消收藏成功" At:weakSelf.view];
+        }tag:tag];
+    }else{
+        [[REngine shareInstance] collectHouseWithUid:[REngine shareInstance].uid houseId:self.houseInfo.hid type:@"1" tag:tag];
+        [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
+            }
+            weakSelf.houseInfo.isLike = 1;
+            [weakSelf refreshNavBar];
+            [XEProgressHUD AlertSuccess:@"收藏成功" At:weakSelf.view];
+        }tag:tag];
+    }
 }
 
 - (void)getHouseDetail{
@@ -92,6 +123,7 @@
         RHouseInfo *houseInfo = [[RHouseInfo alloc] init];
         [houseInfo setHouseInfoByDic:dic];
         weakSelf.houseInfo = houseInfo;
+        [weakSelf refreshNavBar];
         [weakSelf refreshHouse];
     }tag:tag];
 }
@@ -119,6 +151,14 @@
 
 }
 
+- (void)refreshNavBar{
+    if (![self isCollect]) {
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
+    }else{
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+    }
+}
+
 - (void)refreshHouse{
     if (![_houseInfo.picUrl isEqual:[NSNull null]]) {
         [self.houseImageView sd_setImageWithURL:_houseInfo.picUrl placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
@@ -139,7 +179,7 @@
     self.floorLabel.text = [NSString stringWithFormat:@"%@/%@",_houseInfo.floor,_houseInfo.floorTop];
     self.cookingLabel.text = _houseInfo.canCooking;
     self.furnitureLabel.text = _houseInfo.haveFurniture;
-    self.descLabel.text = _houseInfo.address;
+    self.descLabel.text = _houseInfo.houseDescription;
     self.ownerNameLabel.text = _houseInfo.ownerName;
     
     [self.imageScrollView removeFromSuperview];

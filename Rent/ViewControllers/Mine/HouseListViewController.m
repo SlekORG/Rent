@@ -19,7 +19,7 @@
 #define HOUSE_TYPE_NOT      0
 #define HOUSE_TYPE_FINISH   1
 
-@interface HouseListViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface HouseListViewController ()<UITableViewDataSource,UITableViewDelegate,HomeCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *houseDataSource;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -551,6 +551,14 @@ static int button_tag = 105;
             button.tag = button_tag;
             [cell addSubview:button];
         }
+        if (_vcType == VcType_Tenant_Contact) {
+            cell.type = cellType_contact;
+            cell.delegate = self;
+        }
+        if (_vcType == VcType_Landlord_Affirm) {
+            cell.type = cellType_Affirm;
+            cell.delegate = self;
+        }
     }
     UIButton *button = (UIButton *)[cell viewWithTag:button_tag];
     RHouseInfo *info;
@@ -677,4 +685,43 @@ static int button_tag = 105;
         }
     }tag:tag];
 }
+
+- (void)confirmHouse:(RHouseInfo *)info{
+    __weak HouseListViewController *weakSelf = self;
+    int tag = [[REngine shareInstance] getConnectTag];
+    [[REngine shareInstance] comfirmHouseWithUid:[REngine shareInstance].uid houseId:info.hid tag:tag];
+    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        int status = [jsonRet intValueForKey:@"status"];
+        if (status == 200) {
+            NSInteger index = [weakSelf.finishHouseDataSource indexOfObject:info];
+            if (index == NSNotFound || index < 0 || index >= weakSelf.finishHouseDataSource.count) {
+                return;
+            }
+            for (RHouseInfo *houseInfo in weakSelf.finishHouseDataSource) {
+                if ([houseInfo.hid isEqual:info.hid]) {
+                    houseInfo.statusName = @"已租出";
+                    break;
+                }
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }tag:tag];
+}
+
+- (void)didTouchCellBtnWithHouseInfo:(RHouseInfo *)houseInfo{
+    if (_vcType == VcType_Tenant_Contact) {
+        [self confirmHouse:houseInfo];
+    }else if (_vcType == VcType_Landlord_Affirm){
+        
+    }
+}
+
 @end

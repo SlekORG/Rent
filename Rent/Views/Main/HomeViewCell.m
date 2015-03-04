@@ -52,6 +52,23 @@
         [self.houseImageView sd_setImageWithURL:nil];
         [self.houseImageView setImage:[UIImage imageNamed:@"house_load_icon"]];
     }
+    if (self.type == cellType_contact) {
+        if ([houseInfo.statusName isEqualToString:@"已租出"]) {
+//            [self.hideButton setTitle:@"待确认" forState:UIControlStateNormal];
+//            self.hideButton.enabled = NO;
+            self.hideButton.hidden = YES;
+        }else{
+            self.hideButton.hidden = NO;
+            [self.hideButton setTitle:@"我要租" forState:UIControlStateNormal];
+            self.hideButton.enabled = YES;
+        }
+    }
+}
+
+- (IBAction)confirmAction:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(didTouchCellBtnWithHouseInfo:)]) {
+        [_delegate didTouchCellBtnWithHouseInfo:self.houseInfo];
+    }
 }
 
 @end

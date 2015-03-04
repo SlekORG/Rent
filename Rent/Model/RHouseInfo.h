@@ -34,6 +34,8 @@
 @property(nonatomic, strong) NSString* ownerName;
 @property(nonatomic, strong) NSString* ownerPhone;
 @property(nonatomic, strong) NSString* payTypeName;
+@property(nonatomic, strong) NSString* houseDescription;
+@property(nonatomic, assign) BOOL isLike;
 
 @property(nonatomic, strong) NSMutableArray *picIds;
 @property(nonatomic, readonly) NSArray* picURLs;
