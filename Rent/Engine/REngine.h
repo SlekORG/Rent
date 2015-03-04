@@ -97,5 +97,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)collectHouseWithUid:(NSString *)uid houseId:(NSString *)hid type:(NSString *)type tag:(int)tag;
 //取消收藏
 - (BOOL)cancelCollectHouseWithUid:(NSString *)uid houseId:(NSString *)hid tag:(int)tag;
+//图片上传
+- (BOOL)updateImageWithData:(NSArray *)data tag:(int)tag;
 
 @end

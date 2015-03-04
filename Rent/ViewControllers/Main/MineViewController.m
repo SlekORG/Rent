@@ -10,6 +10,7 @@
 #import "RTabBarViewController.h"
 #import "HouseListViewController.h"
 #import "REngine.h"
+#import "PublicHouseViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -204,7 +205,8 @@ static int desLabel_tag = 101;
         switch (indexPath.row) {
             case 0:
             {
-                
+                PublicHouseViewController *vc = [[PublicHouseViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 1:

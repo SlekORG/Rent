@@ -11,6 +11,9 @@
 		073EF2D11AA4297200D98463 /* HouseFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073EF2CF1AA4297200D98463 /* HouseFilterViewController.xib */; };
 		074C03111AA43B3700EA5F7F /* HouseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074C030F1AA43B3700EA5F7F /* HouseListViewController.m */; };
 		074C03121AA43B3700EA5F7F /* HouseListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074C03101AA43B3700EA5F7F /* HouseListViewController.xib */; };
+		07588B0D1AA6F4CB0013C265 /* PublicHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07588B0B1AA6F4CB0013C265 /* PublicHouseViewController.m */; };
+		07588B0E1AA6F4CB0013C265 /* PublicHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07588B0C1AA6F4CB0013C265 /* PublicHouseViewController.xib */; };
+		07588B141AA70B6D0013C265 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 07588B131AA70B6D0013C265 /* UIImage+ProportionalFill.m */; };
 		3B371C221AA2B8B4008545AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C211AA2B8B4008545AE /* main.m */; };
 		3B371C251AA2B8B4008545AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C241AA2B8B4008545AE /* AppDelegate.m */; };
 		3B371C281AA2B8B4008545AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B371C271AA2B8B4008545AE /* ViewController.m */; };
@@ -173,6 +176,11 @@
 		074C030E1AA43B3700EA5F7F /* HouseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseListViewController.h; sourceTree = "<group>"; };
 		074C030F1AA43B3700EA5F7F /* HouseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseListViewController.m; sourceTree = "<group>"; };
 		074C03101AA43B3700EA5F7F /* HouseListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseListViewController.xib; sourceTree = "<group>"; };
+		07588B0A1AA6F4CB0013C265 /* PublicHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublicHouseViewController.h; path = ViewControllers/Detail/PublicHouseViewController.h; sourceTree = "<group>"; };
+		07588B0B1AA6F4CB0013C265 /* PublicHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublicHouseViewController.m; path = ViewControllers/Detail/PublicHouseViewController.m; sourceTree = "<group>"; };
+		07588B0C1AA6F4CB0013C265 /* PublicHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PublicHouseViewController.xib; path = ViewControllers/Detail/PublicHouseViewController.xib; sourceTree = "<group>"; };
+		07588B121AA70B6D0013C265 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ProportionalFill.h"; path = "Utils/UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
+		07588B131AA70B6D0013C265 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ProportionalFill.m"; path = "Utils/UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		3B371C1C1AA2B8B4008545AE /* Rent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B371C201AA2B8B4008545AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B371C211AA2B8B4008545AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -622,6 +630,8 @@
 				3B371C8A1AA2D86F008545AE /* RSystem.h */,
 				3B371C941AA2D91F008545AE /* NSDictionary+ObjectForKey.h */,
 				3B371C951AA2D91F008545AE /* NSDictionary+ObjectForKey.m */,
+				07588B121AA70B6D0013C265 /* UIImage+ProportionalFill.h */,
+				07588B131AA70B6D0013C265 /* UIImage+ProportionalFill.m */,
 				3B371C961AA2D91F008545AE /* NSString+Value.h */,
 				3B371C971AA2D91F008545AE /* NSString+Value.m */,
 				3B371C981AA2D91F008545AE /* PathHelper.h */,
@@ -1103,6 +1113,9 @@
 				073EF2CD1AA4297200D98463 /* HouseFilterViewController.h */,
 				073EF2CE1AA4297200D98463 /* HouseFilterViewController.m */,
 				073EF2CF1AA4297200D98463 /* HouseFilterViewController.xib */,
+				07588B0A1AA6F4CB0013C265 /* PublicHouseViewController.h */,
+				07588B0B1AA6F4CB0013C265 /* PublicHouseViewController.m */,
+				07588B0C1AA6F4CB0013C265 /* PublicHouseViewController.xib */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -1207,6 +1220,7 @@
 				3B371C691AA2C086008545AE /* RTabBarItemView.xib in Resources */,
 				3B371C301AA2B8B4008545AE /* LaunchScreen.xib in Resources */,
 				3B371C2D1AA2B8B4008545AE /* Images.xcassets in Resources */,
+				07588B0E1AA6F4CB0013C265 /* PublicHouseViewController.xib in Resources */,
 				3B371DE71AA2F707008545AE /* MineViewController.xib in Resources */,
 				3B371DFA1AA36A8A008545AE /* HouseDetailViewController.xib in Resources */,
 			);
@@ -1247,6 +1261,7 @@
 				3B371D6A1AA2D9AC008545AE /* AFURLResponseSerialization.m in Sources */,
 				3B371D861AA2D9AC008545AE /* PSTCollectionViewItemKey.m in Sources */,
 				3B371C9C1AA2D91F008545AE /* PathHelper.m in Sources */,
+				07588B141AA70B6D0013C265 /* UIImage+ProportionalFill.m in Sources */,
 				3B371C251AA2B8B4008545AE /* AppDelegate.m in Sources */,
 				3B371DAF1AA2D9AC008545AE /* UIImage+Resize.m in Sources */,
 				3B371D851AA2D9AC008545AE /* PSTCollectionViewFlowLayout.m in Sources */,
@@ -1310,6 +1325,7 @@
 				3B371D811AA2D9AC008545AE /* PSTCollectionView.m in Sources */,
 				3B371D941AA2D9AC008545AE /* ProgressHUD.m in Sources */,
 				3B371D8A1AA2D9AC008545AE /* PSTGridLayoutItem.m in Sources */,
+				07588B0D1AA6F4CB0013C265 /* PublicHouseViewController.m in Sources */,
 				3B371D951AA2D9AC008545AE /* ProgressHUDJF.m in Sources */,
 				3B371D701AA2D9AC008545AE /* QHQnetworkingTool.m in Sources */,
 				3B371C511AA2BB33008545AE /* REngine.m in Sources */,

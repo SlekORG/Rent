@@ -710,4 +710,12 @@ static REngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/cancelRelation",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+//图片上传
+- (BOOL)updateImageWithData:(NSArray *)data tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/imgUpload",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 @end
