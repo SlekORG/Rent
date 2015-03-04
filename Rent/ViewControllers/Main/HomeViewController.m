@@ -19,7 +19,7 @@
 #import "RNavigationController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
-#define pageCount 5
+#define pageCount 10
 
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
