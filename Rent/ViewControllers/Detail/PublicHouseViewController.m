@@ -14,7 +14,7 @@
 #import "REngine.h"
 #import "UIImage+ProportionalFill.h"
 
-@interface PublicHouseViewController ()
+@interface PublicHouseViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
 
@@ -37,6 +37,32 @@
 
 - (void)publicAction{
     NSLog(@"===================");
+    NSString *imgs = nil;
+//    if (self.imgIds.count > 0) {
+//        imgs = [RCommonUtils stringSplitWithCommaForIds:self.imgIds];
+//    }
+    [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
+    __weak PublicHouseViewController *weakSelf = self;
+    int tag = [[REngine shareInstance] getConnectTag];
+    [[REngine shareInstance] publicHouseWithUid:[REngine shareInstance].uid title:@"qweqwe" description:@"weqweq" typeA:@"1" typeB:@"2" typeC:@"3" floor:@"11" floorTop:@"19" area:@"20" direction:@"1" fitment:15 price:@"2000" payType:1 address:@"hahah" imgs:@"" canCooking:1 haveFurniture:1 tag:tag];
+    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        int status = [jsonRet intValueForKey:@"status"];
+        if (status == 200) {
+            [XEProgressHUD AlertSuccess:@"发布成功." At:weakSelf.view];
+        }
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+        
+    }tag:tag];
 }
 
 -(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{

@@ -717,6 +717,64 @@ static REngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+//发布房源
+- (BOOL)publicHouseWithUid:(NSString *)uid title:(NSString *)title description:(NSString *)desc typeA:(NSString *)typeA typeB:(NSString *)typeB typeC:(NSString *)typeC floor:(NSString *)floor floorTop:(NSString *)floorTop area:(NSString *)area direction:(NSString *)direction fitment:(int)fitment price:(NSString *)price payType:(int)payType address:(NSString *)address imgs:(NSString *)imgIds canCooking:(int)canCooking haveFurniture:(int)haveFurniture tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"ownerId"];
+    }
+    if (title) {
+        [params setObject:title forKey:@"title"];
+    }
+    if (desc) {
+        [params setObject:desc forKey:@"description"];
+    }
+    if (typeA) {
+        [params setObject:typeA forKey:@"typeA"];
+    }
+    if (typeB) {
+        [params setObject:typeB forKey:@"typeB"];
+    }
+    if (typeC) {
+        [params setObject:typeC forKey:@"typeC"];
+    }
+    if (floor) {
+        [params setObject:floor forKey:@"floor"];
+    }
+    if (floorTop) {
+        [params setObject:floorTop forKey:@"floorTop"];
+    }
+    if (area) {
+        [params setObject:area forKey:@"area"];
+    }
+    if (direction) {
+        [params setObject:direction forKey:@"direction"];
+    }
+    if (fitment) {
+        [params setObject:[NSNumber numberWithInt:fitment] forKey:@"fitment"];
+    }
+    if (price) {
+        [params setObject:price forKey:@"price"];
+    }
+    if (payType) {
+        [params setObject:[NSNumber numberWithInt:payType] forKey:@"payType"];
+    }
+    if (address) {
+        [params setObject:address forKey:@"address"];
+    }
+    if (imgIds) {
+        [params setObject:imgIds forKey:@"imgIds"];
+    }
+    if (canCooking) {
+        [params setObject:[NSNumber numberWithInt:canCooking] forKey:@"canCooking"];
+    }
+    if (haveFurniture) {
+        [params setObject:[NSNumber numberWithInt:haveFurniture] forKey:@"haveFurniture"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/saveHouse",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 //租客确认房源
 - (BOOL)comfirmHouseWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
