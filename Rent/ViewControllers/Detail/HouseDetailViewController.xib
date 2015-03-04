@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="addressLabel" destination="ItV-h4-wGw" id="3Pn-TH-iMs"/>
                 <outlet property="areaLabel" destination="CLw-pr-Gpb" id="Wgj-9q-tEr"/>
+                <outlet property="clickButton" destination="KIb-Yc-0rW" id="qGl-wQ-gTK"/>
                 <outlet property="containerView" destination="0GZ-X3-P4r" id="ooW-tx-Bys"/>
                 <outlet property="cookingLabel" destination="ZBo-2W-gSe" id="sAK-eU-E9E"/>
                 <outlet property="descLabel" destination="tzr-Wz-t08" id="pwl-cd-sZ2"/>
@@ -16,8 +17,8 @@
                 <outlet property="fitmentLabel" destination="oan-al-I0A" id="uo2-Af-vLg"/>
                 <outlet property="floorLabel" destination="PEv-yA-hH6" id="3q1-8q-eJu"/>
                 <outlet property="furnitureLabel" destination="at2-gb-1QU" id="FoV-gY-yFJ"/>
-                <outlet property="houseImageView" destination="OQA-Rm-lDz" id="91u-ca-wAV"/>
                 <outlet property="houseTitle" destination="Szs-bX-0VX" id="PEW-AX-OII"/>
+                <outlet property="imageScrollView" destination="ClR-yP-OBn" id="R9r-AE-iNs"/>
                 <outlet property="ownerNameLabel" destination="5zm-jP-Nkd" id="vms-vG-r0M"/>
                 <outlet property="priceLabel" destination="AgY-qB-YE8" id="Ljc-0o-KSq"/>
                 <outlet property="typeAbcLabel" destination="Xxb-zK-tsx" id="zyI-vX-WaQ"/>
@@ -180,10 +181,29 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="OQA-Rm-lDz">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="OQA-Rm-lDz">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ClR-yP-OBn">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KIb-Yc-0rW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="imageClickAction:" destination="-1" eventType="touchUpInside" id="UNd-l9-OhW"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="Ch1-jF-UO8"/>
+                            </connections>
+                        </scrollView>
                     </subviews>
                 </scrollView>
                 <view contentMode="scaleToFill" id="Q5W-2B-VHx">

@@ -11,9 +11,12 @@
 #import "XEProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import "RAlertView.h"
+#import "MWPhotoBrowser.h"
 
-@interface HouseDetailViewController ()
+@interface HouseDetailViewController ()<MWPhotoBrowserDelegate>
 
+@property (strong, nonatomic) IBOutlet UIScrollView *imageScrollView;
+@property (strong, nonatomic) IBOutlet UIButton *clickButton;
 @property (strong, nonatomic) IBOutlet UIImageView *houseImageView;
 @property (strong, nonatomic) IBOutlet UILabel *houseTitle;
 @property (strong, nonatomic) IBOutlet UILabel *addressLabel;
@@ -28,6 +31,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *descLabel;
 @property (strong, nonatomic) IBOutlet UIScrollView *containerView;
 @property (strong, nonatomic) IBOutlet UILabel *ownerNameLabel;
+
+
+- (IBAction)imageClickAction:(id)sender;
 
 @end
 
@@ -135,6 +141,78 @@
     self.furnitureLabel.text = _houseInfo.haveFurniture;
     self.descLabel.text = _houseInfo.address;
     self.ownerNameLabel.text = _houseInfo.ownerName;
+    
+    [self.imageScrollView removeFromSuperview];
+    [self.containerView addSubview:self.imageScrollView];
+    int index = 0;
+    for (NSString *picUrl in self.houseInfo.picIds) {
+        XELog(@"picUrl = %@",picUrl);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index*self.imageScrollView.frame.size.width, 0, self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        imageView.userInteractionEnabled = YES;
+        [imageView sd_setImageWithURL:[self.houseInfo.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
+        [self.imageScrollView addSubview:imageView];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = [UIColor clearColor];
+        button.frame = self.imageScrollView.frame;
+        [button addTarget:self action:@selector(imageClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = index;
+        [imageView addSubview:button];
+        
+        index ++;
+    }
+    [self.imageScrollView setContentSize:CGSizeMake((index)*self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
+    self.imageScrollView.pagingEnabled = YES;
+    self.imageScrollView.showsHorizontalScrollIndicator = NO;
 }
 
+- (void)didTapOnItemAtIndex:(NSUInteger)position{
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = NO;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.zoomPhotosToFill = YES;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+    browser.wantsFullScreenLayout = YES;
+#endif
+    browser.enableGrid = YES;
+    browser.startOnGrid = NO;
+    browser.enableSwipeToDismiss = YES;
+    [browser setCurrentPhotoIndex:position];
+    [self.navigationController pushViewController:browser animated:YES];
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.houseInfo.picIds.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    NSArray* picUrls = self.houseInfo.picURLs;
+    if (index < picUrls.count){
+        MWPhoto* mwPhoto = [[MWPhoto alloc] initWithURL:[picUrls objectAtIndex:index]];
+        return mwPhoto;
+    }
+    return nil;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+}
+
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
+    // If we subscribe to this method we must dismiss the view controller ourselves
+    NSLog(@"Did finish modal presentation");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)imageClickAction:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    [self didTapOnItemAtIndex:btn.tag];
+}
 @end

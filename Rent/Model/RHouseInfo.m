@@ -90,6 +90,14 @@
     if ([dic objectForKey:@"payTypeName"]) {
         _payTypeName = [dic objectForKey:@"payTypeName"];
     }
+    
+    id objectForKey = [dic arrayObjectForKey:@"img"];
+    if (objectForKey) {
+        _picIds = [NSMutableArray array];
+        for (NSDictionary *objectDic in objectForKey) {
+            [_picIds addObject:[objectDic objectForKey:@"imgUrl"]];
+        }
+    }
 }
 
 - (NSURL *)picUrl {
@@ -99,4 +107,11 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[REngine shareInstance] baseUrl], _imgUrl]];
 }
 
+- (NSArray *)picURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[REngine shareInstance] baseUrl] ,picID]]];
+    }
+    return urls;
+}
 @end

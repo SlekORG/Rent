@@ -35,6 +35,9 @@
 @property(nonatomic, strong) NSString* ownerPhone;
 @property(nonatomic, strong) NSString* payTypeName;
 
+@property(nonatomic, strong) NSMutableArray *picIds;
+@property(nonatomic, readonly) NSArray* picURLs;
+
 @property(nonatomic, strong) NSDictionary* houseInfoByJsonDic;
 
 - (void)setHouseInfoByDic:(NSDictionary*)dic;

@@ -17,6 +17,9 @@
 #import "HouseFilterViewController.h"
 #import "LoginViewController.h"
 #import "RNavigationController.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
+
+#define pageCount 5
 
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -25,6 +28,9 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *findTableView;
 @property (strong, nonatomic) NSMutableArray *houseArray;
+
+@property (assign, nonatomic) SInt64  nextCursor;
+@property (assign, nonatomic) BOOL canLoadMore;
 
 @end
 
@@ -37,6 +43,50 @@
     
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.findTableView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    __weak HomeViewController *weakSelf = self;
+    [self.findTableView addInfiniteScrollingWithActionHandler:^{
+        if (!weakSelf) {
+            return;
+        }
+        if (!weakSelf.canLoadMore) {
+            [weakSelf.findTableView.infiniteScrollingView stopAnimating];
+            weakSelf.findTableView.showsInfiniteScrolling = NO;
+            return ;
+        }
+        
+        int tag = [[REngine shareInstance] getConnectTag];
+        [[REngine shareInstance] getHouseInfoWithNum:(int)weakSelf.nextCursor count:pageCount uid:nil status:0 tag:tag];
+        [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            [weakSelf.findTableView.infiniteScrollingView stopAnimating];
+            NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
+            }
+            
+            NSArray *object = [jsonRet arrayObjectForKey:@"rows"];
+            for (NSDictionary *dic in object) {
+                RHouseInfo *houseInfo = [[RHouseInfo alloc] init];
+                [houseInfo setHouseInfoByDic:dic];
+                [weakSelf.houseArray addObject:houseInfo];
+            }
+            int totalNumber = [jsonRet intValueForKey:@"total"];
+            weakSelf.canLoadMore = (weakSelf.houseArray.count < totalNumber);
+            if (!weakSelf.canLoadMore) {
+                weakSelf.findTableView.showsInfiniteScrolling = NO;
+            }else{
+                weakSelf.findTableView.showsInfiniteScrolling = YES;
+                weakSelf.nextCursor ++;
+            }
+            
+            [weakSelf.findTableView reloadData];
+        } tag:tag];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,10 +108,12 @@
 }
 
 - (void)getHouseInfo{
+    
+    _nextCursor = 1;
     __weak HomeViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
 
-    [[REngine shareInstance] getHouseInfoWithNum:1 count:10 uid:nil status:0 tag:tag];
+    [[REngine shareInstance] getHouseInfoWithNum:(int)weakSelf.nextCursor count:pageCount uid:nil status:0 tag:tag];
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //        [XEProgressHUD AlertLoadDone];
 //        [self.pullRefreshView finishedLoading];
@@ -83,6 +135,16 @@
             [houseInfo setHouseInfoByDic:dic];
             [weakSelf.houseArray addObject:houseInfo];
         }
+        
+        int totalNumber = [jsonRet intValueForKey:@"total"];
+        weakSelf.canLoadMore = (weakSelf.houseArray.count < totalNumber);
+        if (!weakSelf.canLoadMore) {
+            weakSelf.findTableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.findTableView.showsInfiniteScrolling = YES;
+            weakSelf.nextCursor ++;
+        }
+        
         [weakSelf.findTableView reloadData];
     }tag:tag];
 }
