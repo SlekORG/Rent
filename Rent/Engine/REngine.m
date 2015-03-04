@@ -570,7 +570,7 @@ static REngine* s_ShareInstance = nil;
     }
     if (uid) {
         [params setObject:uid forKey:@"userId"];
-        [params setObject:[NSNumber numberWithInt:status] forKey:@"qStatus"];
+//        [params setObject:[NSNumber numberWithInt:status] forKey:@"qStatus"];
     }
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"rows"];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
@@ -608,13 +608,13 @@ static REngine* s_ShareInstance = nil;
 }
 
 //获取房源详情
-- (BOOL)getHouseDetailWithHid:(NSString *)houseId tag:(int)tag{
+- (BOOL)getHouseDetailWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/getHouseDetailData",API_URL] type:1 parameters:params];
-//    if (pagenum) {
-//        [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"page"];
-//    }
     [params setObject:houseId forKey:@"houseId"];
+    if (uid) {
+        [params setObject:uid forKey:@"userId"];
+    }
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -689,6 +689,25 @@ static REngine* s_ShareInstance = nil;
         [params setObject:houseId forKey:@"houseId"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/resendHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+//收藏/已电话联系房东操作
+- (BOOL)collectHouseWithUid:(NSString *)uid houseId:(NSString *)hid type:(NSString *)type tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userId"];
+    [params setObject:hid forKey:@"houseId"];
+    [params setObject:type forKey:@"type"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/collectHouse",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+//取消收藏
+- (BOOL)cancelCollectHouseWithUid:(NSString *)uid houseId:(NSString *)hid tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userId"];
+    [params setObject:hid forKey:@"houseId"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/cancelRelation",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 @end

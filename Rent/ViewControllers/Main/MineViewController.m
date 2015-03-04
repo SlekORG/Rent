@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *handleDataSource;
 @property (nonatomic, strong) NSMutableDictionary *countDic;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *sectionView;
 @property (nonatomic, strong) IBOutlet UILabel *sectionLabelView;
 
 @end
@@ -103,11 +104,11 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.sectionLabelView.frame.size.height;
+    return self.sectionView.frame.size.height;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    return self.sectionLabelView;
+    return self.sectionView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

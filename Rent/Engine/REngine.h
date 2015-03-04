@@ -77,7 +77,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //筛选房源列表信息
 - (BOOL)getHouseListWithNum:(NSUInteger)pagenum count:(NSUInteger)count qRoomAreaMin:(NSString *)aMin qRoomAreaMax:(NSString *)aMax qPriceMin:(NSString *)pMin qPriceMax:(NSString *)pMax qCanCooking:(NSString *)cooking qHaveFurniture:(NSString *)furniture qDirection:(NSString *)dire tag:(int)tag;
 //获取房源详情
-- (BOOL)getHouseDetailWithHid:(NSString *)houseId tag:(int)tag;
+- (BOOL)getHouseDetailWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag;
 
 //版本更新
 - (BOOL)getAppNewVersionWithAppType:(int)appType version:(NSInteger)version tag:(int)tag;
@@ -93,5 +93,9 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)markHasBeenRentWithHouseId:(NSString *)houseId tag:(int)tag;
 //重新发布
 - (BOOL)resetPublishWithHouseId:(NSString *)houseId tag:(int)tag;
+//收藏/已电话联系房东操作
+- (BOOL)collectHouseWithUid:(NSString *)uid houseId:(NSString *)hid type:(NSString *)type tag:(int)tag;
+//取消收藏
+- (BOOL)cancelCollectHouseWithUid:(NSString *)uid houseId:(NSString *)hid tag:(int)tag;
 
 @end
