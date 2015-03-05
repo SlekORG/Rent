@@ -76,6 +76,32 @@
     }
 }
 
+- (IBAction)sendCodeAction:(id)sender {
+    __weak LoginViewController *weakSelf = self;
+    int tag = [[REngine shareInstance] getConnectTag];
+    [[REngine shareInstance] getSmsCodeWithPhone:_accountTextField.text tag:tag];
+    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        int status = [jsonRet intValueForKey:@"status"];
+        if (status == 200) {
+            [XEProgressHUD AlertSuccess:@"发送成功." At:weakSelf.view];
+        }else if (status == 201){
+            [XEProgressHUD AlertError:@"手机已注册" At:weakSelf.view];
+        }else if (status == 202){
+            [XEProgressHUD AlertError:@"短信发送失败" At:weakSelf.view];
+        }else {
+            [XEProgressHUD AlertLoadDone];
+        }
+    }tag:tag];
+}
+
 - (IBAction)loginAction:(id)sender {
     
     _accountTextField.text = [_accountTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

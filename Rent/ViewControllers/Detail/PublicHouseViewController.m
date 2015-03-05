@@ -24,12 +24,24 @@
 #define ONE_IMAGE_HEIGHT  70
 #define item_spacing  4
 
-@interface PublicHouseViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate>{
+@interface PublicHouseViewController ()<UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate>{
     CGRect _oldRect;
 }
 
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *imgIds;
+
+@property (strong, nonatomic) IBOutlet UITextField *titleField;
+@property (strong, nonatomic) IBOutlet UITextView *descTextView;
+@property (strong, nonatomic) IBOutlet UITextField *typeaField;
+@property (strong, nonatomic) IBOutlet UITextField *typebField;
+@property (strong, nonatomic) IBOutlet UITextField *typecField;
+@property (strong, nonatomic) IBOutlet UITextField *floorField;
+@property (strong, nonatomic) IBOutlet UITextField *floorTopField;
+@property (strong, nonatomic) IBOutlet UITextField *areaField;
+@property (strong, nonatomic) IBOutlet UITextField *priceField;
+@property (strong, nonatomic) IBOutlet UITextField *addressField;
+@property (strong, nonatomic) IBOutlet UIButton *cookingButton;
 
 @property (strong, nonatomic) IBOutlet GMGridView *imagesGridView;
 
@@ -70,7 +82,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    
     
 }
 
@@ -254,6 +265,12 @@
 }
 
 - (void)publicAction{
+    if (_titleField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入标题"];
+        return;
+    }
+
+    
     NSLog(@"===================");
     NSString *imgs = nil;
     if (self.imgIds.count > 0) {
@@ -262,7 +279,7 @@
     [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
     __weak PublicHouseViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
-    [[REngine shareInstance] publicHouseWithUid:[REngine shareInstance].uid title:@"qweqwe" description:@"weqweq" typeA:@"1" typeB:@"2" typeC:@"3" floor:@"11" floorTop:@"19" area:@"20" direction:@"1" fitment:4 price:@"3000" payType:1 address:@"hahah" imgs:imgs canCooking:1 haveFurniture:1 tag:tag];
+    [[REngine shareInstance] publicHouseWithUid:[REngine shareInstance].uid title:_titleField.text description:@"weqweq" typeA:@"1" typeB:@"2" typeC:@"3" floor:@"11" floorTop:@"19" area:@"20" direction:@"1" fitment:4 price:@"3000" payType:1 address:@"hahah" imgs:imgs canCooking:1 haveFurniture:1 tag:tag];
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
@@ -277,7 +294,6 @@
         if (status == 200) {
             [XEProgressHUD AlertSuccess:@"发布成功." At:weakSelf.view];
         }
-//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         [weakSelf.navigationController popViewControllerAnimated:YES];
         
     }tag:tag];
