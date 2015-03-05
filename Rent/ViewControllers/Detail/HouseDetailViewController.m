@@ -160,12 +160,12 @@
 }
 
 - (void)refreshHouse{
-    if (![_houseInfo.picUrl isEqual:[NSNull null]]) {
-        [self.houseImageView sd_setImageWithURL:_houseInfo.picUrl placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
-    }else{
-        [self.houseImageView sd_setImageWithURL:nil];
-        [self.houseImageView setImage:[UIImage imageNamed:@"house_load_icon"]];
-    }
+//    if (![_houseInfo.picUrl isEqual:[NSNull null]]) {
+//        [self.houseImageView sd_setImageWithURL:_houseInfo.picUrl placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
+//    }else{
+//        [self.houseImageView sd_setImageWithURL:nil];
+//        [self.houseImageView setImage:[UIImage imageNamed:@"house_load_icon"]];
+//    }
     self.houseTitle.text = _houseInfo.title;
     self.addressLabel.text = _houseInfo.address;
     self.priceLabel.text = [NSString stringWithFormat:@"%@/月",_houseInfo.price];
@@ -185,27 +185,29 @@
     [self.imageScrollView removeFromSuperview];
     [self.containerView addSubview:self.imageScrollView];
     int index = 0;
-    for (NSString *picUrl in self.houseInfo.picIds) {
-        XELog(@"picUrl = %@",picUrl);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index*self.imageScrollView.frame.size.width, 0, self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        imageView.userInteractionEnabled = YES;
-        [imageView sd_setImageWithURL:[self.houseInfo.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
-        [self.imageScrollView addSubview:imageView];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor clearColor];
-        button.frame = self.imageScrollView.frame;
-        [button addTarget:self action:@selector(imageClickAction:) forControlEvents:UIControlEventTouchUpInside];
-        button.tag = index;
-        [imageView addSubview:button];
-        
-        index ++;
+    if(self.houseInfo.picIds.count > 0){
+        for (NSString *picUrl in self.houseInfo.picIds) {
+            XELog(@"picUrl = %@",picUrl);
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index*self.imageScrollView.frame.size.width, 0, self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            imageView.userInteractionEnabled = YES;
+            [imageView sd_setImageWithURL:[self.houseInfo.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:@"house_load_icon"]];
+            [self.imageScrollView addSubview:imageView];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.backgroundColor = [UIColor clearColor];
+            button.frame = self.imageScrollView.frame;
+            [button addTarget:self action:@selector(imageClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            button.tag = index;
+            [imageView addSubview:button];
+            
+            index ++;
+        }
+        [self.imageScrollView setContentSize:CGSizeMake((index)*self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
+        self.imageScrollView.pagingEnabled = YES;
+        self.imageScrollView.showsHorizontalScrollIndicator = NO;
     }
-    [self.imageScrollView setContentSize:CGSizeMake((index)*self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
-    self.imageScrollView.pagingEnabled = YES;
-    self.imageScrollView.showsHorizontalScrollIndicator = NO;
 }
 
 - (void)didTapOnItemAtIndex:(NSUInteger)position{

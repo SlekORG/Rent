@@ -60,7 +60,14 @@
         }else{
             self.hideButton.hidden = NO;
             [self.hideButton setTitle:@"我要租" forState:UIControlStateNormal];
-            self.hideButton.enabled = YES;
+        }
+    }
+    if (self.type == cellType_Affirm) {
+        if ([houseInfo.statusName isEqualToString:@"已租出"]) {
+            self.hideButton.hidden = NO;
+            [self.hideButton setTitle:@"我确认" forState:UIControlStateNormal];
+        }else{
+            self.hideButton.hidden = YES;
         }
     }
 }

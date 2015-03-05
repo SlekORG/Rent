@@ -468,10 +468,10 @@ static REngine* s_ShareInstance = nil;
         return YES;
     }else {
         NSString* fullUrl = url;
-        if (params) {
-            NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
-            fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
-        }
+//        if (params) {
+//            NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
+//            fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
+//        }
         NSLog(@"postFullUrl=%@",fullUrl);
         if (dataArray) {
             [QHQnetworkingTool postWithURL:fullUrl params:nil formDataArray:dataArray success:^(id response) {

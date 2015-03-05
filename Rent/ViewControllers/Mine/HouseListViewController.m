@@ -689,7 +689,11 @@ static int button_tag = 105;
 - (void)confirmHouse:(RHouseInfo *)info{
     __weak HouseListViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
-    [[REngine shareInstance] comfirmHouseWithUid:[REngine shareInstance].uid houseId:info.hid tag:tag];
+    if (_vcType == VcType_Tenant_Contact) {
+        [[REngine shareInstance] comfirmHouseWithUid:[REngine shareInstance].uid houseId:info.hid tag:tag];
+    }else if(_vcType == VcType_Landlord_Affirm) {
+        [[REngine shareInstance] checkHouseWithHouseId:info.hid tag:tag];
+    }
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -717,11 +721,8 @@ static int button_tag = 105;
 }
 
 - (void)didTouchCellBtnWithHouseInfo:(RHouseInfo *)houseInfo{
-    if (_vcType == VcType_Tenant_Contact) {
-        [self confirmHouse:houseInfo];
-    }else if (_vcType == VcType_Landlord_Affirm){
-        
-    }
+
+    [self confirmHouse:houseInfo];
 }
 
 @end
