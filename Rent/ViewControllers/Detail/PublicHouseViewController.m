@@ -24,8 +24,29 @@
 #define ONE_IMAGE_HEIGHT  70
 #define item_spacing  4
 
-@interface PublicHouseViewController ()<UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate>{
+#define Tag_Cooking_One   301
+#define Tag_Furniture_Two 302
+
+#define Tag_direction_check 401
+#define Tag_Fitment_check   402
+#define Tag_PayType_check   403
+
+@interface PublicHouseViewController ()<UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate,UIPickerViewDataSource, UIPickerViewDelegate>{
     CGRect _oldRect;
+    BOOL bCooking;
+    BOOL bFurniture;
+    int  cooking;
+    int  furniture;
+    int  direction;
+    int  fitment;
+    int  payType;
+    NSArray *_direTextArray;
+    NSArray *_direArray;
+    NSArray *_fitmentTextArray;
+    NSArray *_fitmentArray;
+    NSArray *_payTextArray;
+    NSArray *_payArray;
+    NSInteger checkType;
 }
 
 @property (nonatomic, strong) NSMutableArray *images;
@@ -41,9 +62,20 @@
 @property (strong, nonatomic) IBOutlet UITextField *areaField;
 @property (strong, nonatomic) IBOutlet UITextField *priceField;
 @property (strong, nonatomic) IBOutlet UITextField *addressField;
-@property (strong, nonatomic) IBOutlet UIButton *cookingButton;
+@property (strong, nonatomic) IBOutlet UIButton *cookingBtn;
+@property (strong, nonatomic) IBOutlet UIButton *furnitureBtn;
+@property (strong, nonatomic) IBOutlet UIButton *direButton;
+@property (strong, nonatomic) IBOutlet UILabel *direLabel;
+@property (strong, nonatomic) IBOutlet UIButton *fitmentButton;
+@property (strong, nonatomic) IBOutlet UILabel *fitmentLabel;
+@property (strong, nonatomic) IBOutlet UIButton *payTypeButton;
+@property (strong, nonatomic) IBOutlet UILabel *payTypeLabel;
 
+@property (strong, nonatomic) IBOutlet UIView *inputContainerView;
+@property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (strong, nonatomic) IBOutlet GMGridView *imagesGridView;
+
+@property (nonatomic, weak) UIView *Pickermask;
 
 @end
 
@@ -63,6 +95,7 @@
     _imagesGridView.actionDelegate = self;
     _imagesGridView.showsHorizontalScrollIndicator = NO;
     _imagesGridView.showsVerticalScrollIndicator = NO;
+    _imagesGridView.scrollEnabled = NO;
     _imagesGridView.dataSource = self;
     _imagesGridView.enableEditOnLongPress = YES;
     _imagesGridView.disableEditOnEmptySpaceTap = YES;
@@ -72,6 +105,7 @@
         self.imgIds = [[NSMutableArray alloc] init];
     }
     [self.imagesGridView reloadData];
+    [self.mainScrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.2)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -83,6 +117,12 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
+    _direTextArray = [NSArray arrayWithObjects:@"朝东",@"朝南",@"朝西",@"朝北",@"南西",@"东南",@"西北",@"东北",nil];
+    _direArray = @[@(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8)];
+    _fitmentTextArray = [NSArray arrayWithObjects:@"毛坯",@"简单装修",@"中等装修",@"精装修",@"豪华装修",nil];
+    _fitmentArray = @[@(1),@(2),@(3),@(4),@(5)];
+    _payTextArray = [NSArray arrayWithObjects:@"押一付一",@"押一付二",@"押一付三",@"押二付一",@"押二付二",@"押二付三",@"半年付",@"年付",@"面议",nil];
+    _payArray = @[@(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -264,14 +304,70 @@
     [self.navigationController presentViewController:picker animated:YES completion:NULL];//用self.navigationController弹出 相机 StatusBar才会隐藏
 }
 
+- (IBAction)moreFliterAction:(id)sender {
+    UIButton *btn = sender;
+    if (btn.tag == Tag_Cooking_One) {
+        bCooking = !bCooking;
+        if (bCooking) {
+            cooking = 1;
+            [self.cookingBtn setImage:[UIImage imageNamed:@"select_choose_icon"] forState:UIControlStateNormal];
+        }else{
+            cooking = 2;
+            [self.cookingBtn setImage:[UIImage imageNamed:@"select_unchoose_icon"] forState:UIControlStateNormal];
+        }
+    }else if (btn.tag == Tag_Furniture_Two) {
+        bFurniture = !bFurniture;
+        if (bFurniture) {
+            furniture = 1;
+            [self.furnitureBtn setImage:[UIImage imageNamed:@"select_choose_icon"] forState:UIControlStateNormal];
+        }else{
+            furniture = 2;
+            [self.furnitureBtn setImage:[UIImage imageNamed:@"select_unchoose_icon"] forState:UIControlStateNormal];
+        }
+    }
+}
+
 - (void)publicAction{
     if (_titleField.text.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入标题"];
+        [XEProgressHUD lightAlert:@"请输入标题信息"];
         return;
     }
-
-    
-    NSLog(@"===================");
+    if(_descTextView.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请入描述信息"];
+        return;
+    }
+    if (_typeaField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间为几室"];
+        return;
+    }
+    if (_typebField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间为几厅"];
+        return;
+    }
+    if (_typecField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间为几卫"];
+        return;
+    }
+    if (_floorField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间处在几层"];
+        return;
+    }
+    if (_floorTopField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间总共层数"];
+        return;
+    }
+    if (_areaField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间面积"];
+        return;
+    }
+    if (_priceField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入当前房间租金"];
+        return;
+    }
+    if (_addressField.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入具体地址信息"];
+        return;
+    }
     NSString *imgs = nil;
     if (self.imgIds.count > 0) {
         imgs = [RCommonUtils stringSplitWithCommaForIds:self.imgIds];
@@ -279,7 +375,7 @@
     [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
     __weak PublicHouseViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
-    [[REngine shareInstance] publicHouseWithUid:[REngine shareInstance].uid title:_titleField.text description:@"weqweq" typeA:@"1" typeB:@"2" typeC:@"3" floor:@"11" floorTop:@"19" area:@"20" direction:@"1" fitment:4 price:@"3000" payType:1 address:@"hahah" imgs:imgs canCooking:1 haveFurniture:1 tag:tag];
+    [[REngine shareInstance] publicHouseWithUid:[REngine shareInstance].uid title:_titleField.text description:_descTextView.text typeA:_typeaField.text typeB:_typebField.text typeC:_typecField.text floor:_floorField.text floorTop:_floorTopField.text area:_areaField.text direction:direction fitment:fitment price:_priceField.text payType:payType address:_addressField.text imgs:imgs canCooking:cooking haveFurniture:furniture tag:tag];
     [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
@@ -293,6 +389,8 @@
         int status = [jsonRet intValueForKey:@"status"];
         if (status == 200) {
             [XEProgressHUD AlertSuccess:@"发布成功." At:weakSelf.view];
+        }else if (status == 201){
+            [XEProgressHUD AlertSuccess:@"发布失败." At:weakSelf.view];
         }
         [weakSelf.navigationController popViewControllerAnimated:YES];
         
@@ -316,8 +414,6 @@
         [self updateImage:image AndData:imageData];
     }
     [picker dismissModalViewControllerAnimated:YES];
-    //    [LSCommonUtils saveImageToAlbum:picker Img:image];
-    
 }
 
 -(void)updateImage:(UIImage *)image AndData:(NSData *)data{
@@ -356,6 +452,103 @@
             [XEProgressHUD AlertError:@"上传失败." At:weakSelf.view];
         }
     }tag:tag];
+}
+
+- (IBAction)checkAction:(id)sender {
+    UIButton *btn = sender;
+    checkType = btn.tag;
+  
+    UIView *Pickermask = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    Pickermask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    [[UIApplication sharedApplication].keyWindow addSubview:Pickermask];
+    self.Pickermask = Pickermask;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closePicker)];
+    [Pickermask addGestureRecognizer:tap];
+    
+    UIPickerView *countPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-230, SCREEN_WIDTH, 200)];
+    countPicker.backgroundColor = [UIColor whiteColor];
+    countPicker.layer.cornerRadius = 5;
+    countPicker.delegate = self;
+    countPicker.dataSource = self;
+    [Pickermask addSubview:countPicker];
+    
+    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
+    confirmBtn.backgroundColor = [UIColor whiteColor];
+    confirmBtn.layer.cornerRadius = 5;
+    [confirmBtn addTarget:self action:@selector(pickerComfirm) forControlEvents:UIControlEventTouchUpInside];
+    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [confirmBtn setTitleColor:SKIN_COLOR forState:UIControlStateNormal];
+    [Pickermask addSubview:confirmBtn];
+}
+
+-(void)pickerComfirm
+{
+    if (checkType == Tag_direction_check) {
+        if ([self.payTypeLabel.text isEqualToString:@"房间朝向"]) {
+            self.direLabel.text = [_direTextArray objectAtIndex:0];
+            direction = 1;
+        }
+    }else if(checkType == Tag_Fitment_check){
+        if ([self.payTypeLabel.text isEqualToString:@"房间装修"]) {
+            self.fitmentLabel.text = [_fitmentTextArray objectAtIndex:0];
+            fitment = 1;
+        }
+    }else if(checkType == Tag_PayType_check){
+        if ([self.payTypeLabel.text isEqualToString:@"支付形式"]) {
+            self.payTypeLabel.text = [_payTextArray objectAtIndex:0];
+            payType = 1;
+        }
+    }
+    [self.Pickermask removeFromSuperview];
+}
+
+-(void)closePicker
+{
+    [self.Pickermask removeFromSuperview];
+}
+
+#pragma -UIPickerView代理
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (checkType == Tag_direction_check) {
+        return [_direTextArray objectAtIndex:row];
+    }else if(checkType == Tag_Fitment_check){
+        return [_fitmentTextArray objectAtIndex:row];
+    }else {
+        return [_payTextArray objectAtIndex:row];
+    }
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (checkType == Tag_direction_check) {
+        return _direTextArray.count;
+    }else if(checkType == Tag_Fitment_check){
+        return _fitmentTextArray.count;
+    }else {
+        return _payTextArray.count;
+    }
+}
+
+-(void) pickerView: (UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent: (NSInteger)component
+{
+    if (checkType == Tag_direction_check) {
+        self.direLabel.text = [_direTextArray objectAtIndex:row];
+        direction = (int)_direArray[row];
+    }else if(checkType == Tag_Fitment_check){
+        self.fitmentLabel.text = [_fitmentTextArray objectAtIndex:row];
+        fitment = (int)_fitmentArray[row];
+    }else if(checkType == Tag_PayType_check){
+        self.payTypeLabel.text = [_payTextArray objectAtIndex:row];
+        payType = (int)_payArray[row];
+    }
 }
 
 - (void)dealloc {

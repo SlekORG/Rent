@@ -576,7 +576,7 @@ static REngine* s_ShareInstance = nil;
     }
     if (uid) {
         [params setObject:uid forKey:@"userId"];
-//        [params setObject:[NSNumber numberWithInt:status] forKey:@"qStatus"];
+        [params setObject:[NSNumber numberWithInt:status] forKey:@"qStatus"];
     }
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"rows"];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
@@ -725,7 +725,7 @@ static REngine* s_ShareInstance = nil;
 }
 
 //发布房源
-- (BOOL)publicHouseWithUid:(NSString *)uid title:(NSString *)title description:(NSString *)desc typeA:(NSString *)typeA typeB:(NSString *)typeB typeC:(NSString *)typeC floor:(NSString *)floor floorTop:(NSString *)floorTop area:(NSString *)area direction:(NSString *)direction fitment:(int)fitment price:(NSString *)price payType:(int)payType address:(NSString *)address imgs:(NSString *)imgIds canCooking:(int)canCooking haveFurniture:(int)haveFurniture tag:(int)tag{
+- (BOOL)publicHouseWithUid:(NSString *)uid title:(NSString *)title description:(NSString *)desc typeA:(NSString *)typeA typeB:(NSString *)typeB typeC:(NSString *)typeC floor:(NSString *)floor floorTop:(NSString *)floorTop area:(NSString *)area direction:(int)direction fitment:(int)fitment price:(NSString *)price payType:(int)payType address:(NSString *)address imgs:(NSString *)imgIds canCooking:(int)canCooking haveFurniture:(int)haveFurniture tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (uid) {
         [params setObject:uid forKey:@"ownerId"];
@@ -755,7 +755,7 @@ static REngine* s_ShareInstance = nil;
         [params setObject:area forKey:@"area"];
     }
     if (direction) {
-        [params setObject:direction forKey:@"direction"];
+        [params setObject:[NSNumber numberWithInt:direction] forKey:@"direction"];
     }
     if (fitment) {
         [params setObject:[NSNumber numberWithInt:fitment] forKey:@"fitment"];

@@ -106,7 +106,9 @@
             break;
         case 2:
         {
-            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=610391034"]];
+//            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=610391034"]];
+            RAlertView *alert = [[RAlertView alloc] initWithTitle:@"小贴士" message:@"项目还未上架,请耐心等待" cancelButtonTitle:@"确定"];
+            [alert show];
         }
             break;
             
@@ -129,7 +131,7 @@
         NSString *version = [jsonRet stringObjectForKey:@"currentVersion"];
         if (versionStatus == 200) {
             RAlertView *alert = [[RAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
-                NSURL *url = [[NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
+                NSURL *url = [[NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id......"] ;
                 [[UIApplication sharedApplication] openURL:url];
             }];
             [alert show];

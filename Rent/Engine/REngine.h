@@ -101,7 +101,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //图片上传
 - (BOOL)updateImageWithData:(NSArray *)data tag:(int)tag;
 //发布房源
-- (BOOL)publicHouseWithUid:(NSString *)uid title:(NSString *)title description:(NSString *)desc typeA:(NSString *)typeA typeB:(NSString *)typeB typeC:(NSString *)typeC floor:(NSString *)floor floorTop:(NSString *)floorTop area:(NSString *)area direction:(NSString *)direction fitment:(int)fitment price:(NSString *)price payType:(int)payType address:(NSString *)address imgs:(NSString *)imgIds canCooking:(int)canCooking haveFurniture:(int)haveFurniture tag:(int)tag;
+- (BOOL)publicHouseWithUid:(NSString *)uid title:(NSString *)title description:(NSString *)desc typeA:(NSString *)typeA typeB:(NSString *)typeB typeC:(NSString *)typeC floor:(NSString *)floor floorTop:(NSString *)floorTop area:(NSString *)area direction:(int)direction fitment:(int)fitment price:(NSString *)price payType:(int)payType address:(NSString *)address imgs:(NSString *)imgIds canCooking:(int)canCooking haveFurniture:(int)haveFurniture tag:(int)tag;
 //租客确认房源
 - (BOOL)comfirmHouseWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag;
 //房东确认租出
