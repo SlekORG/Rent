@@ -544,7 +544,7 @@ static int button_tag = 105;
         cell = [cells objectAtIndex:0];
         if (_vcType == VcType_Landlord_Publish) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(self.view.bounds.size.width - 72 - 20, 48, 72, 25);
+            button.frame = CGRectMake(self.view.bounds.size.width - 72 - 12, 48, 72, 25);
             [button setBackgroundImage:[UIImage imageNamed:@"login_btn_enabled"] forState:0];
             [button addTarget:self action:@selector(handleClickAt:event:) forControlEvents:UIControlEventTouchUpInside];
             button.titleLabel.font = [UIFont systemFontOfSize:14];

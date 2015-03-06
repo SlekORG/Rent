@@ -31,10 +31,13 @@
 #define Tag_Fitment_check   402
 #define Tag_PayType_check   403
 
-@interface PublicHouseViewController ()<UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate,UIPickerViewDataSource, UIPickerViewDelegate>{
+@interface PublicHouseViewController ()<UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate,UIPickerViewDataSource, UIPickerViewDelegate,UIScrollViewDelegate>{
     CGRect _oldRect;
     BOOL bCooking;
     BOOL bFurniture;
+    BOOL bDirection;
+    BOOL bFitment;
+    BOOL bPayType;
     int  cooking;
     int  furniture;
     int  direction;
@@ -72,6 +75,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *payTypeLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *inputContainerView;
+@property (strong, nonatomic) IBOutlet UIImageView *inputBgView;
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (strong, nonatomic) IBOutlet GMGridView *imagesGridView;
 
@@ -84,6 +88,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.inputBgView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:22];
     
     NSInteger spacing = 7;
     _imagesGridView.backgroundColor = [UIColor clearColor];
@@ -105,7 +111,7 @@
         self.imgIds = [[NSMutableArray alloc] init];
     }
     [self.imagesGridView reloadData];
-    [self.mainScrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.2)];
+    [self.mainScrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.1)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -368,6 +374,19 @@
         [XEProgressHUD lightAlert:@"请输入具体地址信息"];
         return;
     }
+    if (!bDirection) {
+        [XEProgressHUD lightAlert:@"请选择房间朝向"];
+        return;
+    }
+    if (!bFitment) {
+        [XEProgressHUD lightAlert:@"请选择装修类型"];
+        return;
+    }
+    if (!bPayType) {
+        [XEProgressHUD lightAlert:@"请选择支付形式"];
+        return;
+    }
+    [self doforEndEdit];
     NSString *imgs = nil;
     if (self.imgIds.count > 0) {
         imgs = [RCommonUtils stringSplitWithCommaForIds:self.imgIds];
@@ -392,9 +411,12 @@
         }else if (status == 201){
             [XEProgressHUD AlertSuccess:@"发布失败." At:weakSelf.view];
         }
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-        
+        [weakSelf performSelector:@selector(backAction:) withObject:nil afterDelay:0.5];
     }tag:tag];
+}
+
+- (void)backAction:(id)sender{
+    [super backAction:sender];
 }
 
 #pragma mark -UIImagePickerControllerDelegate
@@ -482,19 +504,62 @@
     [Pickermask addSubview:confirmBtn];
 }
 
+- (IBAction)textViewbecomeFirstResponderAction:(id)sender {
+    [self doforEndEdit];
+}
+
+- (void)doforEndEdit{
+    if (self.titleField.isFirstResponder) {
+        [self.titleField resignFirstResponder];
+    }
+    if (self.descTextView.isFirstResponder) {
+        [self.descTextView resignFirstResponder];
+    }
+    if (self.typeaField.isFirstResponder) {
+        [self.typeaField resignFirstResponder];
+    }
+    if (self.typebField.isFirstResponder) {
+        [self.typebField resignFirstResponder];
+    }
+    if (self.typecField.isFirstResponder) {
+        [self.typecField resignFirstResponder];
+    }
+    if (self.floorField.isFirstResponder) {
+        [self.floorField resignFirstResponder];
+    }
+    if (self.floorTopField.isFirstResponder) {
+        [self.floorTopField resignFirstResponder];
+    }
+    if (self.areaField.isFirstResponder) {
+        [self.areaField resignFirstResponder];
+    }
+    if (self.priceField.isFirstResponder) {
+        [self.priceField resignFirstResponder];
+    }
+    if (self.addressField.isFirstResponder) {
+        [self.addressField resignFirstResponder];
+    }
+    if (self.addressField.isFirstResponder) {
+        [self.addressField resignFirstResponder];
+    }
+}
+
 -(void)pickerComfirm
 {
     if (checkType == Tag_direction_check) {
-        if ([self.payTypeLabel.text isEqualToString:@"房间朝向"]) {
+        bDirection = YES;
+        if ([self.direLabel.text isEqualToString:@"房间朝向"]) {
             self.direLabel.text = [_direTextArray objectAtIndex:0];
             direction = 1;
         }
     }else if(checkType == Tag_Fitment_check){
-        if ([self.payTypeLabel.text isEqualToString:@"房间装修"]) {
+        bFitment = YES;
+        if ([self.fitmentLabel.text isEqualToString:@"房间装修"]) {
             self.fitmentLabel.text = [_fitmentTextArray objectAtIndex:0];
             fitment = 1;
         }
     }else if(checkType == Tag_PayType_check){
+        bPayType = YES;
         if ([self.payTypeLabel.text isEqualToString:@"支付形式"]) {
             self.payTypeLabel.text = [_payTextArray objectAtIndex:0];
             payType = 1;
@@ -506,6 +571,11 @@
 -(void)closePicker
 {
     [self.Pickermask removeFromSuperview];
+}
+
+#pragma mark -UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self doforEndEdit];
 }
 
 #pragma -UIPickerView代理

@@ -96,7 +96,11 @@
     switch (indexPath.row) {
         case 0:
         {
-            
+            RAlertView *alertView = [[RAlertView alloc] initWithTitle:@"联系我们" message:@"18606501408" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"呼叫" okBlock:^{
+                NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", @"18606501408"]];
+                [[UIApplication sharedApplication] openURL:URL];
+            }];
+            [alertView show];
         }
             break;
         case 1:

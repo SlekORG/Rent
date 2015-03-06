@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.2)];
+    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.1)];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

@@ -43,8 +43,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *cookingBtn;
 @property (strong, nonatomic) IBOutlet UIButton *furnitureBtn;
 @property (strong, nonatomic) IBOutlet UIButton *directionBtn;
-@property (strong, nonatomic) IBOutlet UIView *floatView;
+//@property (strong, nonatomic) IBOutlet UIView *floatView;
 @property (strong, nonatomic) IBOutlet UILabel *directionLabel;
+@property (nonatomic, weak) UIView *Pickermask;
 
 @end
 
@@ -53,9 +54,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CGRect frame = _floatView.frame;
-    frame.origin.y = self.view.bounds.size.height;
-    _floatView.frame = frame;
+//    CGRect frame = _floatView.frame;
+//    frame.origin.y = self.view.bounds.size.height;
+//    _floatView.frame = frame;
     _pickerArray = [NSArray arrayWithObjects:@"朝东",@"朝南",@"朝西",@"朝北",@"南西",@"东南",@"西北",@"东北", nil];
     _direArray = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8", nil];
 }
@@ -143,24 +144,60 @@
 }
 
 - (IBAction)direFliterAction:(id)sender {
-    if (_floatView.superview == self.view) {
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect rect = _floatView.frame;
-            rect.origin.y = self.view.frame.size.height;
-            _floatView.frame = rect;
-        } completion:^(BOOL finished) {
-            [self.floatView removeFromSuperview];
-        }];
-    }else{
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect rect = _floatView.frame;
-            rect.origin.y = self.view.frame.size.height - _floatView.frame.size.height;
-            _floatView.frame = rect;
-            [self.view addSubview:_floatView];
-        } completion:^(BOOL finished) {
-            
-        }];
+    UIView *Pickermask = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    Pickermask.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    [[UIApplication sharedApplication].keyWindow addSubview:Pickermask];
+    self.Pickermask = Pickermask;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closePicker)];
+    [Pickermask addGestureRecognizer:tap];
+    
+    UIPickerView *countPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-230, SCREEN_WIDTH, 200)];
+    countPicker.backgroundColor = [UIColor whiteColor];
+    countPicker.layer.cornerRadius = 5;
+    countPicker.delegate = self;
+    countPicker.dataSource = self;
+    [Pickermask addSubview:countPicker];
+    
+    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
+    confirmBtn.backgroundColor = [UIColor whiteColor];
+    confirmBtn.layer.cornerRadius = 5;
+    [confirmBtn addTarget:self action:@selector(pickerComfirm) forControlEvents:UIControlEventTouchUpInside];
+    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [confirmBtn setTitleColor:SKIN_COLOR forState:UIControlStateNormal];
+    [Pickermask addSubview:confirmBtn];
+//    if (_floatView.superview == self.view) {
+//        [UIView animateWithDuration:0.3 animations:^{
+//            CGRect rect = _floatView.frame;
+//            rect.origin.y = self.view.frame.size.height;
+//            _floatView.frame = rect;
+//        } completion:^(BOOL finished) {
+//            [self.floatView removeFromSuperview];
+//        }];
+//    }else{
+//        [UIView animateWithDuration:0.3 animations:^{
+//            CGRect rect = _floatView.frame;
+//            rect.origin.y = self.view.frame.size.height - _floatView.frame.size.height;
+//            _floatView.frame = rect;
+//            [self.view addSubview:_floatView];
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//    }
+}
+
+-(void)pickerComfirm
+{
+    if ([self.directionLabel.text isEqualToString:@"房间朝向"]) {
+        self.directionLabel.text = @"朝东";
+        _directionStr = @"1";
     }
+    [self.Pickermask removeFromSuperview];
+}
+
+-(void)closePicker
+{
+    [self.Pickermask removeFromSuperview];
 }
 
 - (IBAction)moreFliterAction:(id)sender {

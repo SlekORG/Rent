@@ -41,7 +41,7 @@
     self.backButton.hidden = !_showBackButton;
     [self.userTypeSwitch addTarget:self action:@selector(toggleSetValue:) forControlEvents:UIControlEventTouchUpInside];
     [self.userTypeSwitch setOn:NO animated:YES];
-    _userTypeLabel.text = @"房客";
+    _userTypeLabel.text = @"我是租客";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,9 +70,9 @@
     BOOL bValue = toggle.on;
     _isLandlord = bValue;
     if (_isLandlord) {
-        _userTypeLabel.text = @"房东";
+        _userTypeLabel.text = @"我是房东";
     }else{
-        _userTypeLabel.text = @"房客";
+        _userTypeLabel.text = @"我是租客";
     }
 }
 
