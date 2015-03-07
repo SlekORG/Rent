@@ -9,10 +9,16 @@
             <connections>
                 <outlet property="accountTextField" destination="kkw-rW-maZ" id="otf-lT-yS5"/>
                 <outlet property="backButton" destination="mQZ-xN-Xv4" id="VMU-Sc-Y8F"/>
-                <outlet property="loginButton" destination="7O5-xi-0cK" id="xFd-k1-zyn"/>
+                <outlet property="loginButton" destination="ajn-gu-P78" id="ybw-Ia-U7L"/>
+                <outlet property="loginPassField" destination="xw8-jV-KuK" id="Ggz-Yo-O5r"/>
+                <outlet property="loginView" destination="O4L-Hl-CRn" id="fx1-dX-y2H"/>
+                <outlet property="nameTextField" destination="QJn-5g-hWN" id="wHI-po-Pwi"/>
                 <outlet property="passwordTextField" destination="A0g-Ry-DW6" id="0IR-T8-BNO"/>
+                <outlet property="phoneNameField" destination="37F-UT-W5T" id="aRv-d7-gKc"/>
                 <outlet property="registerAffirmView" destination="dvJ-HR-ec1" id="VaD-MV-gzM"/>
                 <outlet property="registerButton" destination="e5Q-yw-nXm" id="6D5-dz-lF7"/>
+                <outlet property="registerView" destination="1TK-MI-bC1" id="r5k-70-nHn"/>
+                <outlet property="segmented" destination="uZR-mm-Nj9" id="6kR-nA-Bcg"/>
                 <outlet property="userTypeLabel" destination="EXF-vU-30m" id="adg-Z3-fhD"/>
                 <outlet property="userTypeSwitch" destination="066-AA-zeV" id="sVW-2w-shj"/>
                 <outlet property="userTypeView" destination="5FU-9G-Jfc" id="jqV-Jd-eq5"/>
@@ -30,18 +36,76 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="1TK-MI-bC1" userLabel="View - login">
-                    <rect key="frame" x="0.0" y="80" width="320" height="568"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="uZR-mm-Nj9">
+                    <rect key="frame" x="78" y="40" width="163" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                    <color key="tintColor" red="0.43921568630000002" green="0.76862745099999996" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </segmentedControl>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mQZ-xN-Xv4">
+                    <rect key="frame" x="285" y="0.0" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="login_back_btn">
+                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="backAction:" destination="-1" eventType="touchUpInside" id="Nyh-4h-ObI"/>
+                    </connections>
+                </button>
+                <view hidden="YES" contentMode="scaleToFill" id="O4L-Hl-CRn" userLabel="View - login">
+                    <rect key="frame" x="0.0" y="95" width="320" height="291"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="kkw-rW-maZ">
-                            <rect key="frame" x="40" y="8" width="240" height="35"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="37F-UT-W5T">
+                            <rect key="frame" x="40" y="33" width="240" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="xw8-jV-KuK">
+                            <rect key="frame" x="40" y="84" width="240" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ajn-gu-P78">
+                            <rect key="frame" x="40" y="136" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
+                            <state key="normal" title="登录" backgroundImage="login_btn_enabled">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" backgroundImage="login_btn_hover"/>
+                            <connections>
+                                <action selector="loginAction:" destination="-1" eventType="touchUpInside" id="vcF-ch-nev"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="1TK-MI-bC1" userLabel="View - register">
+                    <rect key="frame" x="0.0" y="95" width="320" height="291"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="kkw-rW-maZ">
+                            <rect key="frame" x="40" y="0.0" width="240" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入用户名" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="QJn-5g-hWN">
+                            <rect key="frame" x="40" y="42" width="240" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <view contentMode="scaleToFill" id="dvJ-HR-ec1">
-                            <rect key="frame" x="40" y="102" width="240" height="47"/>
+                            <rect key="frame" x="40" y="127" width="240" height="47"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="center" minimumFontSize="16" background="verify_commit_bg" id="X0q-FM-5dG">
@@ -53,7 +117,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nKZ-N7-vtY">
                                     <rect key="frame" x="168" y="6" width="72" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="backgroundColor" red="0.4392156862745098" green="0.7686274509803922" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="再次发送">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -67,7 +131,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="5FU-9G-Jfc">
-                            <rect key="frame" x="48" y="152" width="224" height="30"/>
+                            <rect key="frame" x="48" y="177" width="224" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="是否房东" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EXF-vU-30m">
@@ -85,7 +149,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="e5Q-yw-nXm">
-                            <rect key="frame" x="40" y="195" width="113" height="30"/>
+                            <rect key="frame" x="40" y="220" width="240" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
                             <state key="normal" title="注册" backgroundImage="login_btn_enabled">
@@ -97,21 +161,8 @@
                                 <action selector="registerAction:" destination="-1" eventType="touchUpInside" id="CLF-ET-20N"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7O5-xi-0cK">
-                            <rect key="frame" x="167" y="195" width="113" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
-                            <state key="normal" title="登录" backgroundImage="login_btn_enabled">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="disabled" backgroundImage="login_btn_hover"/>
-                            <connections>
-                                <action selector="loginAction:" destination="-1" eventType="touchUpInside" id="NA8-re-EuP"/>
-                            </connections>
-                        </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="A0g-Ry-DW6">
-                            <rect key="frame" x="40" y="59" width="240" height="35"/>
+                            <rect key="frame" x="40" y="84" width="240" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -119,17 +170,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mQZ-xN-Xv4">
-                    <rect key="frame" x="285" y="0.0" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="login_back_btn">
-                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="backAction:" destination="-1" eventType="touchUpInside" id="Nyh-4h-ObI"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -139,7 +179,7 @@
     <resources>
         <image name="login_back_btn" width="30" height="30"/>
         <image name="login_btn_enabled" width="248" height="42"/>
-        <image name="login_btn_hover" width="248" height="40"/>
+        <image name="login_btn_hover" width="248" height="42"/>
         <image name="verify_commit_bg" width="248" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

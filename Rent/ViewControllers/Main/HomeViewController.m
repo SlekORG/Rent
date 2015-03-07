@@ -97,7 +97,9 @@
 - (void)initNormalTitleNavBarSubviews{
     [self setTitle:@"找房"];
     [self setLeftButtonWithTitle:@"筛选" selector:@selector(filterAction)];
-    [self setRightButtonWithTitle:@"登录" selector:@selector(loginAction)];
+    if (![REngine shareInstance].uid) {
+        [self setRightButtonWithTitle:@"登录" selector:@selector(loginAction)];
+    }
 }
 
 - (UINavigationController *)navigationController{

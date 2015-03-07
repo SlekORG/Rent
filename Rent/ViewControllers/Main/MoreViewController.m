@@ -11,6 +11,9 @@
 #import "XEProgressHUD.h"
 #import "REngine.h"
 #import "RAlertView.h"
+#import "RNavigationController.h"
+#import "LoginViewController.h"
+#import "XEActionSheet.h"
 
 @interface MoreViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -28,7 +31,10 @@
     _moreDataSource = [[NSMutableArray alloc] init];
     [_moreDataSource addObject:@"联系我们"];
     [_moreDataSource addObject:@"检查更新"];
-    [_moreDataSource addObject:@"给我们评个分吧！"];
+    [_moreDataSource addObject:@"给我评分"];
+    if ([REngine shareInstance].uid) {
+        [_moreDataSource addObject:@"用户退出"];
+    }
     [self.tableView reloadData];
     
     UIView *view = [UIView new];
@@ -108,6 +114,7 @@
             [self checkVersion];
         }
             break;
+        
         case 2:
         {
 //            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=610391034"]];
@@ -115,7 +122,28 @@
             [alert show];
         }
             break;
+        case 3:
+        {
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    return;
+                }
+                if (buttonIndex == 0) {
+                    [[REngine shareInstance] visitorLogin];
+                    LoginViewController *loginVc = [[LoginViewController alloc] init];
+                    RNavigationController* navigationController = [[RNavigationController alloc] initWithRootViewController:loginVc];
+                    navigationController.navigationBarHidden = YES;
+                    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+                }
+            }];
+            [sheet addButtonWithTitle:@"退出登录"];
+            sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
             
+            [sheet addButtonWithTitle:@"取消"];
+            sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+            [sheet showInView:self.view];
+        }
+            break;
         default:
             break;
     }

@@ -11,6 +11,11 @@
 #import "HouseListViewController.h"
 #import "REngine.h"
 #import "PublicHouseViewController.h"
+#import "LoginViewController.h"
+#import "RNavigationController.h"
+
+#define Tag_register_state 100
+#define Tag_login_state    101
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -19,6 +24,7 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *sectionView;
 @property (nonatomic, strong) IBOutlet UILabel *sectionLabelView;
+@property (strong, nonatomic) IBOutlet UIView *LoginView;
 
 @end
 
@@ -47,7 +53,15 @@
 }
 
 -(void)initNormalTitleNavBarSubviews{
-    [self setTitle:@"我的信息"];
+    if ([REngine shareInstance].uid) {
+        [self setTitle:[REngine shareInstance].userInfo.contactName];
+        [_LoginView setHidden:YES];
+        [_tableView setHidden:NO];
+    }else {
+        [self setTitle:@"游客"];
+        [_LoginView setHidden:NO];
+        [_tableView setHidden:YES];
+    }
 }
 
 - (UINavigationController *)navigationController{
@@ -231,6 +245,20 @@ static int desLabel_tag = 101;
                 break;
         }
     }
+}
+
+- (IBAction)loginAction:(id)sender {
+    UIButton *btn = sender;
+    LoginViewController *loginVc = [[LoginViewController alloc] init];
+    loginVc.showBackButton = YES;
+    if (btn.tag == Tag_register_state) {
+        loginVc.vcType = VcType_Register;
+    }else if (btn.tag == Tag_login_state){
+        loginVc.vcType = VcType_Login;
+    }
+    RNavigationController* navigationController = [[RNavigationController alloc] initWithRootViewController:loginVc];
+    navigationController.navigationBarHidden = YES;
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

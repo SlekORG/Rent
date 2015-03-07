@@ -21,6 +21,7 @@
                 <outlet property="imageScrollView" destination="ClR-yP-OBn" id="R9r-AE-iNs"/>
                 <outlet property="ownerNameLabel" destination="5zm-jP-Nkd" id="vms-vG-r0M"/>
                 <outlet property="priceLabel" destination="AgY-qB-YE8" id="Ljc-0o-KSq"/>
+                <outlet property="telImageView" destination="rEQ-uC-d9Q" id="DJK-yb-FJz"/>
                 <outlet property="typeAbcLabel" destination="Xxb-zK-tsx" id="zyI-vX-WaQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -102,7 +103,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oan-al-I0A">
-                                    <rect key="frame" x="203.00000036401408" y="105" width="98" height="21"/>
+                                    <rect key="frame" x="203" y="105" width="98" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -116,7 +117,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5go-AG-e4A">
-                                    <rect key="frame" x="203.00000036401408" y="134" width="98" height="21"/>
+                                    <rect key="frame" x="203.00000075100581" y="134" width="98" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

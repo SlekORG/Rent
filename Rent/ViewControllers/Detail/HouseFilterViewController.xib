@@ -7,10 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HouseFilterViewController">
             <connections>
+                <outlet property="areaBtn1" destination="XPl-Kb-6Gp" id="Cyx-1x-Se7"/>
+                <outlet property="areaBtn2" destination="YTZ-cS-SNW" id="VuY-oX-IX8"/>
+                <outlet property="areaBtn3" destination="VE2-gM-Mc4" id="alP-I2-sfl"/>
+                <outlet property="areaBtn4" destination="dQH-pD-yW2" id="aLa-45-GH6"/>
+                <outlet property="containerView" destination="osT-dJ-gNW" id="Jyl-Rb-hLz"/>
                 <outlet property="cookingBtn" destination="IJj-7x-1kv" id="W3v-Co-8Hl"/>
                 <outlet property="directionBtn" destination="zTZ-Ng-eTr" id="yTd-JH-yal"/>
                 <outlet property="directionLabel" destination="eZX-2s-nby" id="zC0-8l-UgZ"/>
                 <outlet property="furnitureBtn" destination="gvL-YQ-PFg" id="c9B-8s-LOL"/>
+                <outlet property="priceBtn1" destination="J2K-Pl-bPZ" id="UZL-sP-O2n"/>
+                <outlet property="priceBtn2" destination="IST-jH-ZaT" id="Wci-CE-kQC"/>
+                <outlet property="priceBtn3" destination="iLR-JI-Oxu" id="9JC-W1-rf6"/>
+                <outlet property="priceBtn4" destination="vP6-5b-aoN" id="V4S-qu-BP8"/>
+                <outlet property="priceBtn5" destination="RcG-Nr-r6K" id="GZH-qy-bSW"/>
+                <outlet property="priceBtn6" destination="cIX-kz-sGv" id="MqX-Va-xMX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

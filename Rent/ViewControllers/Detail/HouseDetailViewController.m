@@ -12,9 +12,12 @@
 #import "UIImageView+WebCache.h"
 #import "RAlertView.h"
 #import "MWPhotoBrowser.h"
+#import "LoginViewController.h"
+#import "RNavigationController.h"
 
 @interface HouseDetailViewController ()<MWPhotoBrowserDelegate>
 
+@property (strong, nonatomic) IBOutlet UIImageView *telImageView;
 @property (strong, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *clickButton;
 @property (strong, nonatomic) IBOutlet UIImageView *houseImageView;
@@ -129,6 +132,14 @@
 }
 
 - (IBAction)callAction:(id)sender {
+    if (![REngine shareInstance].uid) {
+        LoginViewController *loginVc = [[LoginViewController alloc] init];
+        loginVc.showBackButton = YES;
+        RNavigationController* navigationController = [[RNavigationController alloc] initWithRootViewController:loginVc];
+        navigationController.navigationBarHidden = YES;
+        [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+        return;
+    }
     __weak HouseDetailViewController *weakSelf = self;
     int tag = [[REngine shareInstance] getConnectTag];
     [[REngine shareInstance] collectHouseWithUid:[REngine shareInstance].uid houseId:self.houseInfo.hid type:@"2" tag:tag];
@@ -180,8 +191,12 @@
     self.cookingLabel.text = _houseInfo.canCooking;
     self.furnitureLabel.text = _houseInfo.haveFurniture;
     self.descLabel.text = _houseInfo.houseDescription;
-    self.ownerNameLabel.text = _houseInfo.ownerName;
-    
+    if ([REngine shareInstance].uid) {
+        self.ownerNameLabel.text = _houseInfo.ownerName;
+    }else{
+        self.ownerNameLabel.text = @"注册&登录";
+        self.telImageView.hidden = YES;
+    }
     [self.imageScrollView removeFromSuperview];
     [self.containerView addSubview:self.imageScrollView];
     int index = 0;
