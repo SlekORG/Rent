@@ -184,7 +184,11 @@
         self.priceLabel.text = [NSString stringWithFormat:@"%@(%@)",self.priceLabel.text,_houseInfo.payTypeName];
     }
     self.typeAbcLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",_houseInfo.typeA,_houseInfo.typeB,_houseInfo.typeC];
-    self.fitmentLabel.text = _houseInfo.fitmentName;
+    if (![_houseInfo.fitmentName isEqual:[NSNull null]]) {
+        self.fitmentLabel.text = _houseInfo.fitmentName;
+    }else{
+        self.fitmentLabel.text = @"";
+    }
     self.areaLabel.text = [NSString stringWithFormat:@"%@",_houseInfo.area];
     self.directionLabel.text = _houseInfo.directionName;
     self.floorLabel.text = [NSString stringWithFormat:@"%@/%@",_houseInfo.floor,_houseInfo.floorTop];
@@ -222,6 +226,10 @@
         [self.imageScrollView setContentSize:CGSizeMake((index)*self.imageScrollView.frame.size.width, self.imageScrollView.frame.size.height)];
         self.imageScrollView.pagingEnabled = YES;
         self.imageScrollView.showsHorizontalScrollIndicator = NO;
+    }else{
+        self.imageScrollView.hidden = YES;
+        self.houseImageView.hidden = NO;
+        [self.houseImageView setImage:[UIImage imageNamed:@"house_load_icon"]];
     }
 }
 

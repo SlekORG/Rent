@@ -20,7 +20,7 @@
 #import "UIImageView+WebCache.h"
 #import "AppDelegate.h"
 
-#define MAX_IMAGES_NUM    3
+#define MAX_IMAGES_NUM    4
 #define ONE_IMAGE_HEIGHT  70
 #define item_spacing  4
 
@@ -445,7 +445,7 @@
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = data;
         pData.name = @"file";
-        pData.filename = @"file";
+        pData.filename = @".png";
         pData.mimeType = @"image/png";
         [dataArray addObject:pData];
     }

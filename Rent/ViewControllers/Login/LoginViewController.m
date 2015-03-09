@@ -105,6 +105,8 @@
     [self.verifyCodeTextField resignFirstResponder];
     [self.accountTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
+    [self.phoneNameField resignFirstResponder];
+    [self.loginPassField resignFirstResponder];
 }
 
 -(void)toggleSetValue:(id)sender

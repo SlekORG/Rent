@@ -17,6 +17,7 @@
                 <outlet property="fitmentLabel" destination="oan-al-I0A" id="uo2-Af-vLg"/>
                 <outlet property="floorLabel" destination="PEv-yA-hH6" id="3q1-8q-eJu"/>
                 <outlet property="furnitureLabel" destination="at2-gb-1QU" id="FoV-gY-yFJ"/>
+                <outlet property="houseImageView" destination="OQA-Rm-lDz" id="EwS-99-GH9"/>
                 <outlet property="houseTitle" destination="Szs-bX-0VX" id="PEW-AX-OII"/>
                 <outlet property="imageScrollView" destination="ClR-yP-OBn" id="R9r-AE-iNs"/>
                 <outlet property="ownerNameLabel" destination="5zm-jP-Nkd" id="vms-vG-r0M"/>
@@ -103,7 +104,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oan-al-I0A">
-                                    <rect key="frame" x="203" y="105" width="98" height="21"/>
+                                    <rect key="frame" x="203.00000036401408" y="105" width="98" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,7 +118,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5go-AG-e4A">
-                                    <rect key="frame" x="203.00000075100581" y="134" width="98" height="21"/>
+                                    <rect key="frame" x="203.00000036401408" y="134" width="98" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -184,7 +185,7 @@
                         </view>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="OQA-Rm-lDz">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ClR-yP-OBn">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>

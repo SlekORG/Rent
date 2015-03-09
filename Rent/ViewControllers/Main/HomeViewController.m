@@ -129,7 +129,6 @@
             [_themeControl endRefreshing:NO];
             return;
         }
-        [_themeControl endRefreshing:YES];
         weakSelf.houseArray = [[NSMutableArray alloc] init];
         NSArray *object = [jsonRet arrayObjectForKey:@"rows"];
         for (NSDictionary *dic in object) {
@@ -146,8 +145,8 @@
             weakSelf.findTableView.showsInfiniteScrolling = YES;
             weakSelf.nextCursor ++;
         }
-        
         [weakSelf.findTableView reloadData];
+        [_themeControl endRefreshing:YES];
     }tag:tag];
 }
 
@@ -199,7 +198,8 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
-        [self performSelector:@selector(getHouseInfo) withObject:self afterDelay:1.0];
+        //[self performSelector:@selector(getHouseInfo) withObject:self afterDelay:0.3];
+        [self getHouseInfo];
     }
 }
 
@@ -219,6 +219,9 @@
             weakSelf.houseArray = [[NSMutableArray alloc] init];
             [weakSelf.houseArray addObjectsFromArray:array];
             [weakSelf.findTableView reloadData];
+            if (array.count == 0) {
+                 [XEProgressHUD lightAlert:@"没有符合筛选要求的房源"];
+            }
         }
     };
     [self.navigationController pushViewController:hfVC animated:YES];
