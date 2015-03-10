@@ -154,12 +154,28 @@
         }
         NSString *seletePhoneNum = [NSString stringWithFormat:@"%@",weakSelf.houseInfo.ownerPhone];
         RAlertView *alertView = [[RAlertView alloc] initWithTitle:nil message:seletePhoneNum cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"呼叫" okBlock:^{
+            [weakSelf sendRemindSms];
             NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", seletePhoneNum]];
             [[UIApplication sharedApplication] openURL:URL];
         }];
         [alertView show];
     }tag:tag];
+}
 
+- (void)sendRemindSms{
+    __weak HouseDetailViewController *weakSelf = self;
+    int tag = [[REngine shareInstance] getConnectTag];
+    [[REngine shareInstance] sendRemindSmsWithUid:[REngine shareInstance].uid houseId:_houseInfo.hid smsType:1 tag:tag];
+    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+    }tag:tag];
 }
 
 - (void)refreshNavBar{

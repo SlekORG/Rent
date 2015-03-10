@@ -648,7 +648,7 @@ static int button_tag = 105;
             }
             [weakSelf.finishHouseDataSource insertObject:info atIndex:0];
             [weakSelf.finishTableView reloadData];
-            [weakSelf customSegmentedControlAction:1];
+            //[weakSelf customSegmentedControlAction:1];
         }
     }tag:tag];
 }
@@ -681,7 +681,7 @@ static int button_tag = 105;
             }
             [weakSelf.houseDataSource insertObject:info atIndex:0];
             [weakSelf.tableView reloadData];
-            [weakSelf customSegmentedControlAction:0];
+            //[weakSelf customSegmentedControlAction:0];
         }
     }tag:tag];
 }
@@ -705,24 +705,60 @@ static int button_tag = 105;
         }
         int status = [jsonRet intValueForKey:@"status"];
         if (status == 200) {
-            NSInteger index = [weakSelf.finishHouseDataSource indexOfObject:info];
-            if (index == NSNotFound || index < 0 || index >= weakSelf.finishHouseDataSource.count) {
+            NSInteger index = [weakSelf.houseDataSource indexOfObject:info];
+            if (index == NSNotFound || index < 0) {
                 return;
             }
-            for (RHouseInfo *houseInfo in weakSelf.finishHouseDataSource) {
+            for (RHouseInfo *houseInfo in weakSelf.houseDataSource) {
                 if ([houseInfo.hid isEqual:info.hid]) {
-                    houseInfo.statusName = @"已租出";
+                    if (_vcType == VcType_Tenant_Contact) {
+                        houseInfo.statusName = @"已租出";
+                        [weakSelf.tableView reloadData];
+                        [weakSelf sendRemindSmsWithInfo:info];
+                    }else if (_vcType == VcType_Landlord_Affirm){
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                        [weakSelf.houseDataSource removeObjectAtIndex:indexPath.row];
+                        [weakSelf.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    }
                     break;
                 }
             }
-            [weakSelf.tableView reloadData];
         }
     }tag:tag];
 }
 
 - (void)didTouchCellBtnWithHouseInfo:(RHouseInfo *)houseInfo{
+    if (_vcType == VcType_Tenant_Contact) {
+        RAlertView *alert = [[RAlertView alloc] initWithTitle:nil message:@"你确定要租吗？" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"确定" okBlock:^{
+            [self confirmHouse:houseInfo];
+        }];
+        [alert show];
+    }else if(_vcType == VcType_Landlord_Affirm) {
+        RAlertView *alert = [[RAlertView alloc] initWithTitle:nil message:@"你同意出租吗？" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"确定" okBlock:^{
+            [self confirmHouse:houseInfo];
+        }];
+        [alert show];
+    }
+}
 
-    [self confirmHouse:houseInfo];
+- (void)sendRemindSmsWithInfo:(RHouseInfo *)houseInfo{
+    __weak HouseListViewController *weakSelf = self;
+    int tag = [[REngine shareInstance] getConnectTag];
+    [[REngine shareInstance] sendRemindSmsWithUid:[REngine shareInstance].uid houseId:houseInfo.hid smsType:2 tag:tag];
+    [[REngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [REngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        int status = [jsonRet intValueForKey:@"status"];
+        if (status == 200) {
+            [XEProgressHUD AlertSuccess:@"已短信通知房东" At:weakSelf.view];
+        }
+    }tag:tag];
 }
 
 @end

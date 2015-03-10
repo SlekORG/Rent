@@ -799,4 +799,14 @@ static REngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+//电话联系或确认时发送提醒短信
+- (BOOL)sendRemindSmsWithUid:(NSString *)uid houseId:(NSString *)houseId smsType:(int)type tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userId"];
+    [params setObject:houseId forKey:@"houseId"];
+    [params setObject:[NSNumber numberWithInt:type] forKey:@"smsType"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/houseRenting/houseApi/sendRemindSMS",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 @end

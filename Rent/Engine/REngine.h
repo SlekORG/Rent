@@ -106,4 +106,6 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)comfirmHouseWithUid:(NSString *)uid houseId:(NSString *)houseId tag:(int)tag;
 //房东确认租出
 - (BOOL)checkHouseWithHouseId:(NSString *)houseId tag:(int)tag;
+//电话联系或确认时发送提醒短信
+- (BOOL)sendRemindSmsWithUid:(NSString *)uid houseId:(NSString *)houseId smsType:(int)type tag:(int)tag;
 @end
