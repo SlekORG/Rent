@@ -30,7 +30,7 @@
     
     _moreDataSource = [[NSMutableArray alloc] init];
     [_moreDataSource addObject:@"联系我们"];
-    [_moreDataSource addObject:@"检查更新"];
+//    [_moreDataSource addObject:@"检查更新"];
     [_moreDataSource addObject:@"给我评分"];
     if ([REngine shareInstance].uid) {
         [_moreDataSource addObject:@"用户退出"];
@@ -109,20 +109,18 @@
             [alertView show];
         }
             break;
+//        case 1:
+//        {
+//            [self checkVersion];
+//        }
+//            break;
+        
         case 1:
         {
-            [self checkVersion];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id976191685"]];
         }
             break;
-        
         case 2:
-        {
-//            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=610391034"]];
-            RAlertView *alert = [[RAlertView alloc] initWithTitle:@"小贴士" message:@"项目还未上架,请耐心等待" cancelButtonTitle:@"确定"];
-            [alert show];
-        }
-            break;
-        case 3:
         {
             XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
@@ -163,7 +161,7 @@
         NSString *version = [jsonRet stringObjectForKey:@"currentVersion"];
         if (versionStatus == 200) {
             RAlertView *alert = [[RAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
-                NSURL *url = [[NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id......"] ;
+                NSURL *url = [[NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id976191685"] ;
                 [[UIApplication sharedApplication] openURL:url];
             }];
             [alert show];

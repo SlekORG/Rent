@@ -71,7 +71,7 @@
     if (index == _introPages.count - 1) {
         
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        loginBtn.frame = CGRectMake((SCREEN_WIDTH-250)/2, SCREEN_HEIGHT - 200, 250, 80);
+        loginBtn.frame = CGRectMake((SCREEN_WIDTH-250)/2, SCREEN_HEIGHT - 250, 250, 100);
         loginBtn.backgroundColor = [UIColor clearColor];
 //        CGFloat originalH = self.frame.size.height > 500 ? 508 : 420;
 //        loginBtn.center = self.center;

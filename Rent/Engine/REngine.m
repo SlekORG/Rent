@@ -23,7 +23,8 @@
 
 #define CONNECT_TIMEOUT 20
 
-static NSString* API_URL = @"http://218.244.156.120:8080";
+//static NSString* API_URL = @"http://218.244.156.120:8080";
+static NSString* API_URL = @"http://192.168.0.200";
 
 static REngine* s_ShareInstance = nil;
 
